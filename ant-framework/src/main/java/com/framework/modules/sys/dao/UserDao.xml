@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.framework.modules.sys.dao.UserDao">
+
+    <resultMap id="BaseResultMap" type="com.framework.modules.sys.pojo.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="usercode" property="usercode"/>
+        <result column="password" property="password"/>
+        <result column="sex" property="sex"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="address" property="address"/>
+        <result column="status" property="status"/>
+        <result column="birthday" property="birthday"/>
+        <result column="lastlogin" property="lastlogin"/>
+        <result column="createuser" property="createuser"/>
+        <result column="updateuser" property="updateuser"/>
+        <result column="createdate" property="createdate"/>
+        <result column="updatedate" property="updatedate"/>
+        <collection property="roles" ofType="com.framework.modules.sys.pojo.Role" column="id"
+                    select="com.framework.modules.sys.dao.RoleDao.findByUserId" >
+        </collection>
+    </resultMap>
+    <select id="loadUserByUsercode" resultMap="BaseResultMap">
+        select * from sys_user where usercode=#{usercode};
+    </select>
+    <select id="loadUserById" resultMap="BaseResultMap">
+        select * from sys_user where id=#{id};
+    </select>
+    <select id="loadUsers" resultMap="BaseResultMap">
+        select * from sys_user ;
+    </select>
+
+    <select id="loadUserPage" resultMap="BaseResultMap" parameterType="map">
+
+        select * from sys_user where 1 = 1
+        <if test="tb.username != null">
+            AND username = #{tb.username}
+        </if>
+        <if test="tb.usercode != null">
+            AND usercode = #{tb.usercode}
+        </if>
+
+    </select>
+</mapper>

@@ -1,0 +1,72 @@
+#配置服务
+server:
+  port: 9526
+  servlet:
+    session:
+      timeout: -1
+
+
+spring:
+  datasource:       #数据源配置
+    type: com.alibaba.druid.pool.DruidDataSource
+#    driverClassName: com.mysql.jdbc.Driver
+    druid:
+      master:  #主数据源(生产数据库)
+        url: jdbc:mysql://127.0.0.1:3306/smartdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+        username: root
+        password: 123456
+      slave:  #从数据源(历史数据库)
+        url: jdbc:mysql://127.0.0.1:3306/smartdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+        username: root
+        password: 123456
+      middle:  #中间接口数据源(一般是指第三方系统的数据库，当前系统可能对单个表进行读写操作)
+        url: jdbc:mysql://127.0.0.1:3306/smartdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+        username: root
+        password: 123456
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      #validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        #login-username: admin
+        #login-password: admin
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+  redis:    #redis配置
+    database: 0
+    host: 192.168.254.131
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+  cache: #启动redis缓存配置
+    type: REDIS
+    cache-names: redisCache
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:com/framework/modules/**/dao/*.xml
+#  mapper-locations: classpath:/mapper/**/*Dao.xml
+
+logging:
+    level:
+        root: info
