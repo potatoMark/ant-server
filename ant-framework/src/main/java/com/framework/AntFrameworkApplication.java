@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@EnableCaching
 @MapperScan("com.framework.modules.*.dao")
 public class AntFrameworkApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AntFrameworkApplication.class, args);
 	}
