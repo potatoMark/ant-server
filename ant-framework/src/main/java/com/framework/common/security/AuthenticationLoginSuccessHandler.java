@@ -46,7 +46,7 @@ public class AuthenticationLoginSuccessHandler implements AuthenticationSuccessH
 
           String signature = jwt.split("\\.")[2];
 
-          redisUtil.set(signature,user.getId(),60);
+          redisUtil.set(signature,user.getId(),60 * 30);
 
         }catch (Exception e) {
             logger.error("Token generate error",e);
