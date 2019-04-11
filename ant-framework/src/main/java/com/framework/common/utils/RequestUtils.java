@@ -29,9 +29,11 @@ public class RequestUtils {
     public Map<String, Object> getNotNullConditionMap() {
         conditionMap = new HashMap<String, Object>();
 
-        for (Map<String, Object> map : condition) {
-            if (StringUtils.isNotEmpty(String.valueOf(map.get("value")))) {
-                conditionMap.put(String.valueOf(map.get("item")),map.get("value"));
+        if(condition != null) {
+            for (Map<String, Object> map : condition) {
+                if (StringUtils.isNotEmpty(String.valueOf(map.get("value")))) {
+                    conditionMap.put(String.valueOf(map.get("item")),map.get("value"));
+                }
             }
         }
         return conditionMap;

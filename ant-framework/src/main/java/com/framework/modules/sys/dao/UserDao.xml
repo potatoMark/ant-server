@@ -41,6 +41,15 @@
         <if test="tb.usercode != null">
             AND usercode = #{tb.usercode}
         </if>
+        <if test="tb.sex != null">
+            AND sex = #{tb.sex}
+        </if>
+        <if test="tb.status != null">
+            AND status = #{tb.status}
+        </if>
+        <if test="tb.phone != null">
+            AND phone = #{tb.phone}
+        </if>
 
     </select>
 </mapper>

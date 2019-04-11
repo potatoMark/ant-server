@@ -25,8 +25,10 @@ public class TablesController {
     @Autowired
     ITablesService tablesService;
 
-    @GetMapping("/tables")
-    public R getUsers(){
+    @GetMapping("/article/list")
+    public R getList(){
+
+
 
         return R.ok().putResult(tablesService.list(null));
     }
