@@ -1,9 +1,10 @@
 package com.framework.modules.sys.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.framework.modules.sys.pojo.User;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.framework.modules.sys.pojo.UserRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,13 +18,6 @@ import java.util.Map;
  * @author Mark
  * @since 2018-10-02
  */
-public interface UserDao extends BaseMapper<User> {
-    User loadUserByUsercode(String usercode);
-
-    User loadUserById(Long id);
-
-    List<User> loadUsers();
-
-    IPage<User> loadUserPage(@Param("pg") Page page, @Param("tb")Map<String, Object> param );
+public interface UserRoleDao extends BaseMapper<UserRole> {
 
 }

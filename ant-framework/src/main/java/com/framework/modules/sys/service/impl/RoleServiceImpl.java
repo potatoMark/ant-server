@@ -4,7 +4,10 @@ import com.framework.modules.sys.pojo.Role;
 import com.framework.modules.sys.dao.RoleDao;
 import com.framework.modules.sys.service.IRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements IRoleService {
 
+    @Autowired
+    RoleDao roleDao;
+
+    @Override
+    public List<Role> getRoles() {
+        return roleDao.loadRoles();
+    }
 }

@@ -31,4 +31,8 @@ public interface IUserService extends IService<User> {
     PageUtils queryPage(RequestUtils params);
 
     public int deleteUsers(List<Integer> userIds);
+
+    public User getUserByUserCode(String usercode);
+
+    public int saveUser(User user);
 }

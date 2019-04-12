@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.framework.modules.sys.pojo.Role;
+import com.framework.modules.sys.pojo.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -89,11 +90,6 @@ public class UserVO implements Serializable {
     private Timestamp lastlogin;
 
     /**
-     * 头像
-     */
-    private String avator;
-
-    /**
      * 创建者
      */
     private String createuser;
@@ -117,7 +113,29 @@ public class UserVO implements Serializable {
      * 当前用户所拥有的所有权限
      */
 
-    private List<Role> roles;
+    private List<Long> roles;
+
+    public User getPojoUser(){
+        User user = new User();
+        user.setId(this.id);
+        user.setUsername(this.username);
+        user.setUsercode(this.usercode);
+        user.setSex(this.sex);
+        user.setAddress(this.address);
+        user.setBirthday(this.birthday);
+        user.setEmail(this.email);
+        user.setPhone(this.phone);
+        user.setStatus(this.status);
+        List<Role> rs = new ArrayList<>();
+        for (Long id : this.roles) {
+            Role r = new Role();
+            r.setId(id);
+            rs.add(r);
+        }
+        user.setRoles(rs);
+        return user;
+
+    }
 
 
 

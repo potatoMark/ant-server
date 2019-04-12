@@ -20,4 +20,6 @@ public interface RoleDao extends BaseMapper<Role> {
     public List<Role> findByMenuId(Long id);
 
     public Role findById(Long id);
+
+    public List<Role> loadRoles();
 }

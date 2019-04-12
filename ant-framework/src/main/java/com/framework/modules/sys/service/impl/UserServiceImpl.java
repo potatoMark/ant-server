@@ -6,7 +6,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.framework.common.utils.PageUtils;
 import com.framework.common.utils.RequestUtils;
 import com.framework.modules.sys.dao.UserDao;
+import com.framework.modules.sys.dao.UserRoleDao;
+import com.framework.modules.sys.pojo.Role;
 import com.framework.modules.sys.pojo.User;
+import com.framework.modules.sys.pojo.UserRole;
 import com.framework.modules.sys.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -15,6 +18,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +39,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    UserRoleDao userRoleDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -102,6 +109,48 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int deleteUsers(List<Integer> userIds) {
+        for (Integer userId : userIds) {
+            userRoleDao.delete(new QueryWrapper<UserRole>().eq("user_id",userId));
+        }
         return userDao.deleteBatchIds(userIds);
+    }
+
+    @Override
+    public User getUserByUserCode(String usercode) {
+        return userDao.loadUserByUsercode(usercode);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int saveUser(User user) {
+
+        if (user.getId() != null) {
+            userRoleDao.delete(new QueryWrapper<UserRole>().eq("user_id",user.getId()));
+            int rst = userDao.updateById(user);
+            for (Role role : user.getRoles()) {
+
+                UserRole userRole = new UserRole();
+                userRole.setUserId(user.getId());
+                userRole.setRoleId(role.getId());
+
+                userRoleDao.insert(userRole);
+            }
+            return rst;
+        } else {
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            user.setPassword(encoder.encode("123456"));
+            int rst = userDao.insert(user);
+            for (Role role : user.getRoles()) {
+
+                UserRole userRole = new UserRole();
+                userRole.setUserId(user.getId());
+                userRole.setRoleId(role.getId());
+
+                userRoleDao.insert(userRole);
+            }
+            return rst;
+        }
     }
 }

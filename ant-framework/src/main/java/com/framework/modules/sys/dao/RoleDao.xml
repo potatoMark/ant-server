@@ -32,4 +32,9 @@
         WHERE id=#{id}
     </select>
 
+    <select id="loadRoles" resultMap="BaseResultMap">
+        select r.*
+        from sys_role r
+    </select>
+
 </mapper>
