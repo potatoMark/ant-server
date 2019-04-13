@@ -52,5 +52,11 @@ public class menuDaoTests {
 //        List<Menu> menuList1 =  menuDao.selectList();
 //        System.out.print(menuList1);
 //        menuService.deleteMenu(63);
+        Menu menu = new Menu();
+        menu.setId(5);
+        menu.setName("权限信息1");
+        menu.setPath("RoleList1");
+        menu.setParentId(null);
+        menuService.saveMenu(menu);
     }
 }

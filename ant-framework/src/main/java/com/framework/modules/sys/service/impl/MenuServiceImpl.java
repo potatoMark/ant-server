@@ -45,6 +45,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
     public int saveMenu(Menu menu) {
         if (menu.getId() == null) {
             menuDao.insert(menu);
+        } else {
+            menuDao.update(menu,new UpdateWrapper<Menu>().eq("id",menu.getId()));
         }
         return 0;
     }
@@ -59,6 +61,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
         deleteParentChildren(menus);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void deleteParentChildren(List<Menu> menus){
 
         for (Menu menu : menus) {
