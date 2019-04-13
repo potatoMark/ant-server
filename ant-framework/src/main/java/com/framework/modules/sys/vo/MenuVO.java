@@ -1,18 +1,17 @@
-package com.framework.modules.sys.pojo;
+package com.framework.modules.sys.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-import java.util.List;
-
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.framework.modules.sys.pojo.Menu;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.sound.midi.MetaEventListener;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -25,8 +24,7 @@ import javax.sound.midi.MetaEventListener;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("sys_menu")
-public class Menu implements Serializable {
+public class MenuVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +49,6 @@ public class Menu implements Serializable {
     /**
      * 父节点
      */
-    @TableField("parent_id")
     private Integer parentId;
 
     /**
@@ -59,31 +56,14 @@ public class Menu implements Serializable {
      */
     private Integer sort;
 
-
-    /**
-     * 创建者
-     */
-    private String createuser;
-
-    /**
-     * 修改者
-     */
-    private String updateuser;
-
-    /**
-     * 创建日期
-     */
-    private LocalDateTime createdate;
-
-    /**
-     * 修改日期
-     */
-    private LocalDateTime updatedate;
-
-
-    @TableField(exist = false)
-    private List<Menu> children;
-
-
+    public Menu getPojoMenu(){
+        Menu menu = new Menu();
+        menu.setId(this.id);
+        menu.setName(this.name);
+        menu.setPath(this.path);
+        menu.setSort(this.sort);
+        menu.setParentId(this.parentId);
+        return menu;
+    }
 
 }

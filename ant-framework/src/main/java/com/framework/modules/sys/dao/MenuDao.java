@@ -16,8 +16,9 @@ import java.util.List;
  */
 public interface MenuDao extends BaseMapper<Menu> {
 
-    public List<Menu> getMenuList(Integer id);
-    public List<Menu> getChildrenMenu();
+    public List<Menu> getMenuList();
+    public List<Menu> getChildrenMenu(Integer id);
+    public Menu getMenuListById(Integer id);
     public List<Menu> getMenuListWhereParam(String roleNumber);
 
 }

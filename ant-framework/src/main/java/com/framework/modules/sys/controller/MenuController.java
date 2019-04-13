@@ -2,11 +2,16 @@ package com.framework.modules.sys.controller;
 
 
 import com.framework.common.utils.R;
+import com.framework.modules.sys.pojo.Menu;
 import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.service.IMenuService;
+import com.framework.modules.sys.vo.MenuVO;
+import com.framework.modules.sys.vo.UserVO;
 import org.aspectj.lang.annotation.Around;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -29,10 +34,23 @@ public class MenuController {
         return R.ok().putResult(menuService.getMenuListWhereParam(roleNumber));
     }
 
-    @GetMapping("/menus/{id}")
-    public R getMenu(@PathVariable(name="id", required = true) Integer id){
+    @GetMapping("/menus")
+    public R getMenu(){
 
-        return R.ok().putResult(menuService.getMenuList(id));
+        return R.ok().putResult(menuService.getMenuList());
+    }
+
+    @PostMapping("/menus/save")
+    public R saveMenu(@RequestBody MenuVO menuVO){
+        Menu menu = menuVO.getPojoMenu();
+        int rst = menuService.saveMenu(menu);
+        return R.ok();
+    }
+
+    @PostMapping("/menus/delete")
+    public R deleteMenu(@RequestParam Integer id){
+         menuService.deleteMenu(id);
+        return R.ok();
     }
 
 }

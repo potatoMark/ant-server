@@ -84,13 +84,11 @@ public class User implements Serializable, UserDetails {
     /**
      * 生日
      */
-    @JSONField(format="yyyy-MM-dd")
     private Date birthday;
 
     /**
      * 最近登录时间
      */
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Timestamp lastlogin;
 
 

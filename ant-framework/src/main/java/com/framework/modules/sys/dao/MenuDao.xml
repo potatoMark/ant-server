@@ -4,52 +4,36 @@
     <resultMap id="BaseResultMap" type="com.framework.modules.sys.pojo.Menu">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="path" property="path" jdbcType="VARCHAR"/>
-        <result column="component" property="component" javaType="java.lang.Object"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="parentId" property="parentId" jdbcType="INTEGER"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
         <result column="sort" property="sort" jdbcType="INTEGER"/>
-        <result column="redirect" property="redirect" jdbcType="VARCHAR"/>
-        <result column="number" property="number" jdbcType="VARCHAR"/>
         <result column="createuser" property="createuser" jdbcType="VARCHAR"/>
         <result column="updateuser" property="updateuser" jdbcType="VARCHAR"/>
         <result column="createdate" property="createdate"/>
         <result column="updatedate" property="updatedate"/>
-        <association property="meta" javaType="com.framework.modules.sys.pojo.MenuMeta">
-            <result column="hideInMenu" property="hideInMenu" jdbcType="BIT"/>
-            <result column="hideInBread" property="hideInBread" jdbcType="BIT"/>
-            <result column="notCache" property="notCache" jdbcType="BIT"/>
-            <result column="icon" property="icon" jdbcType="VARCHAR"/>
-            <result column="href" property="href" jdbcType="VARCHAR"/>
-            <result column="beforeCloseName" property="beforeCloseName" jdbcType="VARCHAR"/>
-            <result column="title" property="title" jdbcType="VARCHAR"/>
-        </association>
-        <collection property="roles" ofType="com.framework.modules.sys.pojo.Role" column="id"
-                    select="com.framework.modules.sys.dao.RoleDao.findByMenuId" >
-        </collection>
-        <collection property="children" ofType="com.framework.modules.sys.pojo.Menu" column="{id=id, number=number}"
+        <collection property="children" ofType="com.framework.modules.sys.pojo.Menu" column="{id=id}"
                     select="com.framework.modules.sys.dao.MenuDao.getChildrenMenu" >
         </collection>
     </resultMap>
     <select id="getMenuList" resultMap="BaseResultMap" >
-        SELECT * FROM sys_menu WHERE parentId is null
-        <if test="_parameter != null">
-            AND id = #{id}
-        </if>
+        SELECT * FROM sys_menu WHERE parent_id is null
+        ORDER BY sort
+    </select>
+    <select id="getMenuListById" resultMap="BaseResultMap" >
+        SELECT * FROM sys_menu WHERE
+        id = #{id}
         ORDER BY sort
     </select>
     <select id="getChildrenMenu" resultMap="BaseResultMap">
-        SELECT sm.*,sr.number FROM sys_menu sm,jointable_role_menu jrm,sys_role sr
-        WHERE sm.id = jrm.menu_id
-        AND jrm.role_id = sr.id
-        AND sm.parentId = #{id}
-        AND sr.number= #{number}
+        SELECT sm.* FROM sys_menu sm
+        WHERE sm.parent_id = #{id}
         ORDER BY sm.sort
     </select>
     <select id="getMenuListWhereParam" resultMap="BaseResultMap" >
         SELECT sm.*,sr.number FROM sys_menu sm,jointable_role_menu jrm,sys_role sr
         WHERE sm.id = jrm.menu_id
         AND jrm.role_id = sr.id
-        AND sm.parentId is null
+        AND sm.parent_id is null
         <if test="_parameter != null">
             AND sr.number= #{roleNumber}
         </if>

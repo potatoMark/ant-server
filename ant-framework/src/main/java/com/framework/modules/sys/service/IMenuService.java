@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface IMenuService extends IService<Menu> {
 
-    public List<Menu> getMenuList(Integer id);
+    public List<Menu> getMenuList();
     public List<Menu> getMenuListWhereParam(String roleNumber);
+    public int saveMenu(Menu menu);
+    public void deleteMenu(Integer id);
 }
