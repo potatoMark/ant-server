@@ -1,13 +1,18 @@
 package com.framework.modules.sys.controller;
 
 
+import com.framework.common.utils.PageUtils;
 import com.framework.common.utils.R;
+import com.framework.common.utils.RequestUtils;
+import com.framework.modules.sys.pojo.Role;
+import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.service.IRoleService;
+import com.framework.modules.sys.vo.RoleVO;
+import com.framework.modules.sys.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -28,5 +33,32 @@ public class RoleController {
     public R getRoles(){
 
         return R.ok().putResult(iRoleService.getRoles());
+    }
+
+    @PostMapping("/roles/page")
+    public R getRoleList(@RequestBody RequestUtils params){
+        PageUtils page = iRoleService.queryPage(params);
+        return R.ok().putResult(page);
+    }
+
+    @PostMapping("/roles/delete")
+    public R deleteRole(@RequestParam List<Long> roleIds){
+        int rst = iRoleService.deleteRoles(roleIds);
+        return R.ok().putResult(rst);
+    }
+
+    @PostMapping("/roles/save")
+    public R saveRole(@RequestBody RoleVO roleVO){
+        Role role = roleVO.getPojoRole();
+        int rst = iRoleService.saveRole(role);
+        return R.ok();
+    }
+
+    @GetMapping("/roles/{id}")
+    public R getUser(@PathVariable(name="id", required = true) Long id){
+
+        Role role = iRoleService.getRole(id);
+
+        return R.ok().putResult(role);
     }
 }

@@ -1,5 +1,7 @@
 package com.framework.modules.sys.service;
 
+import com.framework.common.utils.PageUtils;
+import com.framework.common.utils.RequestUtils;
 import com.framework.modules.sys.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.framework.modules.sys.pojo.User;
@@ -18,4 +20,11 @@ public interface IRoleService extends IService<Role> {
 
     public List<Role> getRoles();
 
+    PageUtils queryPage(RequestUtils params);
+
+    public int deleteRoles(List<Long> roleIds);
+
+    public int saveRole(Role role);
+
+    public Role getRole(Long id);
 }

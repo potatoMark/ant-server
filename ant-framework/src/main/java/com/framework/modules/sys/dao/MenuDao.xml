@@ -39,4 +39,10 @@
         </if>
         ORDER BY sm.sort
     </select>
+    <select id="getRoleMenus" resultMap="BaseResultMap">
+        SELECT sm.* FROM sys_menu sm,sys_role sr,jointable_role_menu jrm
+        WHERE sm.id = jrm.menu_id and sr.id = jrm.role_id
+        and sr.id = #{roleId}
+        ORDER BY sm.sort
+    </select>
 </mapper>

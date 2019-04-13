@@ -1,5 +1,6 @@
 #配置服务
 server:
+  max-http-header-size: 4048576
   port: 9526
   servlet:
     session:

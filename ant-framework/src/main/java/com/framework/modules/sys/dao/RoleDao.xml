@@ -10,6 +10,9 @@
         <result column="updateuser" property="updateuser"/>
         <result column="createdate" property="createdate"/>
         <result column="updatedate" property="updatedate"/>
+        <collection property="menus" ofType="com.framework.modules.sys.pojo.Menu" column="{roleId=id}"
+                    select="com.framework.modules.sys.dao.MenuDao.getRoleMenus" >
+        </collection>
     </resultMap>
     <select id="findByUserId" resultMap="BaseResultMap">
         select r.*
@@ -37,4 +40,14 @@
         from sys_role r
     </select>
 
+    <select id="loadRolePage" resultMap="BaseResultMap" parameterType="map">
+
+        select * from sys_role where 1 = 1
+        <if test="tb.number != null">
+            AND number = #{tb.number}
+        </if>
+        <if test="tb.name != null">
+            AND name = #{tb.name}
+        </if>
+    </select>
 </mapper>

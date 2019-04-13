@@ -53,7 +53,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteMenu(Integer id) {
+    public void deleteMenu(Long id) {
 
         Menu menu = menuDao.getMenuListById(id);
         List<Menu> menus  = new ArrayList<>();

@@ -18,5 +18,5 @@ public interface IMenuService extends IService<Menu> {
     public List<Menu> getMenuList();
     public List<Menu> getMenuListWhereParam(String roleNumber);
     public int saveMenu(Menu menu);
-    public void deleteMenu(Integer id);
+    public void deleteMenu(Long id);
 }
