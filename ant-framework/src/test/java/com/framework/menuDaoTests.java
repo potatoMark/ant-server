@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -59,7 +60,10 @@ public class menuDaoTests {
 //        menu.setParentId(null);
 //        menuService.saveMenu(menu);
 
-        List<Menu> menuList2 = menuDao.getRoleMenus(1L);
+        List<String> list = new ArrayList<>();
+        list.add("ROLE_MANAGER");
+        list.add("ROLE_ADMIN");
+        List<Menu> menuList2 = menuDao.getMenuListByRoleNumbers(list);
         System.out.print(menuList2);
     }
 }

@@ -32,25 +32,25 @@
         select * from sys_user ;
     </select>
 
-    <select id="loadUserPage" resultMap="BaseResultMap" parameterType="map">
+<!--    <select id="loadUserPage" resultMap="BaseResultMap" parameterType="com.framework.modules.sys.vo.UserVO">-->
 
-        select * from sys_user where 1 = 1
-        <if test="tb.username != null">
-            AND username = #{tb.username}
-        </if>
-        <if test="tb.usercode != null">
-            AND usercode = #{tb.usercode}
-        </if>
-        <if test="tb.sex != null">
-            AND sex = #{tb.sex}
-        </if>
-        <if test="tb.status != null">
-            AND status = #{tb.status}
-        </if>
-        <if test="tb.phone != null">
-            AND phone = #{tb.phone}
-        </if>
+<!--        select * from sys_user where 1 = 1-->
+<!--        <if test="userVO.username != null and userVO.username != ''">-->
+<!--            AND username like CONCAT('%',#{userVO.username},'%')-->
+<!--        </if>-->
+<!--        <if test="userVO.usercode != null and userVO.usercode != ''">-->
+<!--            AND usercode like CONCAT('%',#{userVO.usercode},'%')-->
+<!--        </if>-->
+<!--        <if test="userVO.sex != null">-->
+<!--            AND sex like CONCAT('%',#{userVO.sex},'%')-->
+<!--        </if>-->
+<!--        <if test="userVO.status != null">-->
+<!--            AND status like CONCAT('%',#{userVO.status},'%')-->
+<!--        </if>-->
+<!--        <if test="userVO.phone != null and userVO.phone != ''">-->
+<!--            AND phone like CONCAT('%',#{userVO.phone},'%')-->
+<!--        </if>-->
 
-    </select>
+<!--    </select>-->
 
 </mapper>

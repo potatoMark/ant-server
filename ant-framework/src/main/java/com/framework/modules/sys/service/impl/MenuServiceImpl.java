@@ -1,9 +1,12 @@
 package com.framework.modules.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.framework.modules.sys.dao.RoleMenuDao;
 import com.framework.modules.sys.pojo.Menu;
 import com.framework.modules.sys.dao.MenuDao;
+import com.framework.modules.sys.pojo.RoleMenu;
 import com.framework.modules.sys.pojo.UserRole;
 import com.framework.modules.sys.service.IMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -27,6 +30,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
 
     @Autowired
     MenuDao menuDao;
+
+    @Autowired
+    RoleMenuDao roleMenuDao;
 
     @Override
     public List<Menu> getMenuList() {
@@ -69,9 +75,21 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
             if (childrenMenus != null && childrenMenus.size() > 0) {
                 this.deleteParentChildren(childrenMenus);
             }
-
+            roleMenuDao.delete(new QueryWrapper<RoleMenu>().eq("menu_id",menu.getId()));
             menuDao.deleteById(menu.getId());
 
         }
+    }
+
+    @Override
+    public List<Menu> getMenuListByRoles(List<String> roleNumbers) {
+
+
+        return menuDao.getMenuListByRoleNumbers(roleNumbers);
+    }
+
+    @Override
+    public Menu getMenuByPath(String path) {
+        return menuDao.selectOne(new QueryWrapper<Menu>().eq("path",path));
     }
 }

@@ -47,10 +47,24 @@ public class MenuController {
         return R.ok();
     }
 
+    @PostMapping("/menus/roles")
+    public R getMenuListByRoles(@RequestParam List<String> roleNumbers){
+        List<Menu> menus = menuService.getMenuListByRoles(roleNumbers);
+        return R.ok().putResult(menus);
+    }
+
     @PostMapping("/menus/delete")
     public R deleteMenu(@RequestParam Long id){
          menuService.deleteMenu(id);
         return R.ok();
+    }
+
+    @GetMapping("/menus/path/{path}")
+    public R getMenuByPath(@PathVariable(name="path", required = true) String path){
+
+        Menu menu = menuService.getMenuByPath(path);
+
+        return R.ok().putResult(menu);
     }
 
 }

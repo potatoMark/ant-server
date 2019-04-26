@@ -15,6 +15,18 @@
                     select="com.framework.modules.sys.dao.MenuDao.getChildrenMenu" >
         </collection>
     </resultMap>
+
+    <resultMap id="NormalResultMap" type="com.framework.modules.sys.pojo.Menu">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="createuser" property="createuser" jdbcType="VARCHAR"/>
+        <result column="updateuser" property="updateuser" jdbcType="VARCHAR"/>
+        <result column="createdate" property="createdate"/>
+        <result column="updatedate" property="updatedate"/>
+    </resultMap>
     <select id="getMenuList" resultMap="BaseResultMap" >
         SELECT * FROM sys_menu WHERE parent_id is null
         ORDER BY sort
@@ -45,4 +57,16 @@
         and sr.id = #{roleId}
         ORDER BY sm.sort
     </select>
+
+    <select id="getMenuListByRoleNumbers" resultMap="NormalResultMap">
+        select  distinct sm.* from sys_role sr,sys_menu sm,jointable_role_menu jrm
+        where sr.id = jrm.role_id
+        and sm.id = jrm.menu_id
+        and sr.number in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY sm.createdate
+    </select>
+
 </mapper>

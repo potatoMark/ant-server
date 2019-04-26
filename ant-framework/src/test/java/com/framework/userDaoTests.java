@@ -1,5 +1,8 @@
 package com.framework;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.framework.modules.demo.dao.TablesDao;
 import com.framework.modules.sys.dao.MenuDao;
 import com.framework.modules.sys.dao.RoleDao;
@@ -7,14 +10,18 @@ import com.framework.modules.sys.dao.UserDao;
 import com.framework.modules.sys.dao.UserMapper;
 import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.service.IUserService;
+import com.framework.modules.sys.vo.UserVO;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -43,7 +50,19 @@ public class userDaoTests {
     @Test
     public void testSelect() {
 
-        User user = userDao.loadUserById(1L);
-        user.getId();
+        UserVO userVO = new UserVO();
+        userVO.setUsername("马");
+
+        List<User> userList = userDao.selectList(new QueryWrapper<User>()
+                .like(StringUtils.isNotBlank(userVO.getUsername()),"username",userVO.getUsername())
+                .like(StringUtils.isNotBlank(userVO.getUsername()),"usercode",userVO.getUsercode())
+                .like(StringUtils.isNotBlank(userVO.getUsername()),"sex",userVO.getSex())
+                .like(StringUtils.isNotBlank(userVO.getUsername()),"phone",userVO.getPhone())
+                .like(StringUtils.isNotBlank(userVO.getUsername()),"status",userVO.getStatus())
+        );
+//        Page<User> page = new Page(1L,2);
+//        IPage<User> p= userDao.selectPage(page,new QueryWrapper<User>().like("username",userVO.getUsername()));
+        System.out.println(userList);
+
     }
 }

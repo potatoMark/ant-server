@@ -22,4 +22,5 @@ public interface MenuDao extends BaseMapper<Menu> {
     public List<Menu> getMenuListWhereParam(String roleNumber);
 
     public List<Menu> getRoleMenus(Long roleId);
+    public List<Menu> getMenuListByRoleNumbers(List<String> roleNumbers);
 }

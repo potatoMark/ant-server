@@ -6,11 +6,19 @@ import com.framework.common.utils.token.TokenUtils;
 import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.service.IUserService;
 import com.framework.modules.sys.vo.UserVO;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * <p>
@@ -53,7 +61,7 @@ public class UserController {
     }
 
     @PostMapping("/users/page")
-    public R userPageList(@RequestBody RequestUtils params){
+    public R userPageList(@RequestBody RequestUtils<UserVO> params){
         PageUtils page = userService.queryPage(params);
         return R.ok().putResult(page);
     }
@@ -90,5 +98,12 @@ public class UserController {
         }
     }
 
+    @PostMapping(value = "/users/getUsersByCondition")
+    public R getUsersByCondition(@RequestBody UserVO userVO) throws Exception {
+
+        List<User> users = userService.getUsersByCondition(userVO);
+
+        return R.ok().putResult(users);
+    }
 
 }

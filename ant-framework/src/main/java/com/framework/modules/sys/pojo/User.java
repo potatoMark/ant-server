@@ -123,6 +123,9 @@ public class User implements Serializable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
+        if (roles == null) {
+            return authorities;
+        }
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
@@ -147,6 +150,20 @@ public class User implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String[] getContentValue(){
+        return new String[]{
+                String.valueOf(this.username),
+                String.valueOf(this.usercode),
+                String.valueOf(this.sex),
+                String.valueOf(this.email),
+                String.valueOf(this.phone),
+                String.valueOf(this.address),
+                String.valueOf(this.status),
+                String.valueOf(this.birthday),
+                String.valueOf(this.lastlogin)
+        };
     }
 
 }

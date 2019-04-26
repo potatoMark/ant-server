@@ -1,6 +1,9 @@
 package com.framework.modules.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Condition;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.framework.common.utils.PageUtils;
@@ -11,6 +14,9 @@ import com.framework.modules.sys.pojo.Role;
 import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.pojo.UserRole;
 import com.framework.modules.sys.service.IUserService;
+import com.framework.modules.sys.vo.UserVO;
+import net.sf.jsqlparser.expression.StringValue;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -25,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -100,9 +107,16 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
     @Override
     public PageUtils queryPage(RequestUtils params) {
 
+        UserVO userVO = (UserVO)params.getCondition();
+        Page<User> page = (Page<User>)userDao.selectPage(PageUtils.instance(params.getPage()),new QueryWrapper<User>()
+                .like(StringUtils.isNotBlank(userVO.getUsername()),"username",userVO.getUsername())
+                .like(StringUtils.isNotBlank(userVO.getUsercode()),"usercode",userVO.getUsercode())
+                .eq(userVO.getSex() !=null,"sex",userVO.getSex())
+                .like(StringUtils.isNotBlank(userVO.getPhone()),"phone",userVO.getPhone())
+                .eq(userVO.getStatus() !=null,"status",userVO.getStatus())
+        );
 
-        Page<User> page = (Page<User>)userDao.loadUserPage(PageUtils.instance(params.getPage()), params.getNotNullConditionMap());
-
+//        Page<User> page = (Page<User>)userDao.loadUserPage(PageUtils.instance(params.getPage()), (UserVO)params.getCondition());
         return new PageUtils(page);
     }
 
@@ -152,5 +166,17 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
             }
             return rst;
         }
+    }
+
+    @Override
+    public List<User> getUsersByCondition(UserVO userVO) {
+
+        return userDao.selectList(new QueryWrapper<User>()
+                .like(StringUtils.isNotBlank(userVO.getUsername()),"username",userVO.getUsername())
+                .like(StringUtils.isNotBlank(userVO.getUsercode()),"usercode",userVO.getUsercode())
+                .like(userVO.getSex() !=null,"sex",userVO.getSex())
+                .like(StringUtils.isNotBlank(userVO.getPhone()),"phone",userVO.getPhone())
+                .like(userVO.getStatus() !=null,"status",userVO.getStatus())
+        );
     }
 }

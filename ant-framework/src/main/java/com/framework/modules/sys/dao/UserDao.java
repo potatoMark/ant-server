@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.framework.modules.sys.pojo.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.framework.modules.sys.vo.UserVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -24,6 +25,6 @@ public interface UserDao extends BaseMapper<User> {
 
     List<User> loadUsers();
 
-    IPage<User> loadUserPage(@Param("pg") Page page, @Param("tb")Map<String, Object> param );
+//    IPage<User> loadUserPage(Page page, UserVO userVO);
 
 }

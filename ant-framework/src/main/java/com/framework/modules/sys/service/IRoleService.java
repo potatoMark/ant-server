@@ -5,6 +5,8 @@ import com.framework.common.utils.RequestUtils;
 import com.framework.modules.sys.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.framework.modules.sys.pojo.User;
+import com.framework.modules.sys.vo.RoleVO;
+import com.framework.modules.sys.vo.UserVO;
 
 import java.util.List;
 
@@ -27,4 +29,8 @@ public interface IRoleService extends IService<Role> {
     public int saveRole(Role role);
 
     public Role getRole(Long id);
+
+    public Role getRoleByNumber(String number);
+
+    public List<Role> getRolesByCondition(RoleVO roleVO);
 }

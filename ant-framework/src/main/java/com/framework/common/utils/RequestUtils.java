@@ -12,30 +12,30 @@ import java.util.Map;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class RequestUtils {
+public class RequestUtils<T> {
 
     private Map<String, Object> page;
-    private List<Map<String, Object>> condition;
+    private T condition;
     private Map<String, Object> conditionMap;
 
     public Map<String, Object> getConditionMap() {
         conditionMap = new HashMap<String, Object>();
 
-        for (Map<String, Object> map : condition) {
-            conditionMap.put(String.valueOf(map.get("item")),map.get("value"));
-        }
+//        for (Map<String, Object> map : condition) {
+//            conditionMap.put(String.valueOf(map.get("item")),map.get("value"));
+//        }
         return conditionMap;
     }
     public Map<String, Object> getNotNullConditionMap() {
         conditionMap = new HashMap<String, Object>();
 
-        if(condition != null) {
-            for (Map<String, Object> map : condition) {
-                if (StringUtils.isNotEmpty(String.valueOf(map.get("value")))) {
-                    conditionMap.put(String.valueOf(map.get("item")),map.get("value"));
-                }
-            }
-        }
+//        if(condition != null) {
+//            for (Map<String, Object> map : condition) {
+//                if (StringUtils.isNotEmpty(String.valueOf(map.get("value")))) {
+//                    conditionMap.put(String.valueOf(map.get("item")),map.get("value"));
+//                }
+//            }
+//        }
         return conditionMap;
     }
 }

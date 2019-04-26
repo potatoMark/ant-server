@@ -4,7 +4,9 @@ import com.framework.common.utils.PageUtils;
 import com.framework.common.utils.RequestUtils;
 import com.framework.modules.sys.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.framework.modules.sys.vo.UserVO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,4 +37,6 @@ public interface IUserService extends IService<User> {
     public User getUserByUserCode(String usercode);
 
     public int saveUser(User user);
+
+    public List<User> getUsersByCondition(UserVO userVO);
 }
