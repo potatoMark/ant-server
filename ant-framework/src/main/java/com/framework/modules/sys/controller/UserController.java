@@ -88,7 +88,7 @@ public class UserController {
             //根据signature去redis找出用户编码信息，
             Long userId = (Long) redisUtil.get(signature);
             if (userId == null) {
-                return R.error(404,"user login time out");
+                return R.error(403,"user login time out");
             }
             User user = userService.getUser(userId);
 
