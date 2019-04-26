@@ -6,6 +6,7 @@ import com.framework.modules.sys.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -86,7 +87,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().cors()
                 .and()
                     .csrf().disable()
-                        .exceptionHandling().authenticationEntryPoint(authenticationEntryPointHandler).accessDeniedHandler(authenticationAccessDeniedHandler)
+                        .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPointHandler)
+                .accessDeniedHandler(authenticationAccessDeniedHandler)
                 ;
     }
 }

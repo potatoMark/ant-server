@@ -19,7 +19,6 @@ public class AuthenticationEntryPointHandler implements AuthenticationEntryPoint
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse resp, AuthenticationException e) throws IOException, ServletException {
-//        resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         resp.setContentType("application/json;charset=UTF-8");
         PrintWriter out = resp.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
