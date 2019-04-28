@@ -19,11 +19,11 @@ public class AuthenticationEntryPointHandler implements AuthenticationEntryPoint
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse resp, AuthenticationException e) throws IOException, ServletException {
-        resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         resp.setContentType("application/json;charset=UTF-8");
         PrintWriter out = resp.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
-        out.write(objectMapper.writeValueAsString(R.error(403,"请先登录")));
+        out.write(objectMapper.writeValueAsString(R.error(401,"请先登录")));
         out.flush();
         out.close();
     }

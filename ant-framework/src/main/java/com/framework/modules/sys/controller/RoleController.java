@@ -42,7 +42,7 @@ public class RoleController {
         return R.ok().putResult(page);
     }
 
-    @PostMapping("/roles/delete")
+    @DeleteMapping("/roles/delete")
     public R deleteRole(@RequestParam List<Long> roleIds){
         int rst = iRoleService.deleteRoles(roleIds);
         return R.ok().putResult(rst);

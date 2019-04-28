@@ -68,6 +68,17 @@ mybatis-plus:
   mapper-locations: classpath*:com/framework/modules/**/dao/*.xml
 #  mapper-locations: classpath:/mapper/**/*Dao.xml
 
+swagger:
+  enable: true
+
+open:
+  apis:
+    - /webjars
+    - /swagger
+    - /v2
+    - /sys
+
 logging:
     level:
-        root: debug
+        root: info
+        io.swagger.models.parameters.AbstractSerializableParameter: error

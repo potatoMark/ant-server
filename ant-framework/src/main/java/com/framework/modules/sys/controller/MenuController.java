@@ -53,7 +53,7 @@ public class MenuController {
         return R.ok().putResult(menus);
     }
 
-    @PostMapping("/menus/delete")
+    @DeleteMapping("/menus/delete")
     public R deleteMenu(@RequestParam Long id){
          menuService.deleteMenu(id);
         return R.ok();
