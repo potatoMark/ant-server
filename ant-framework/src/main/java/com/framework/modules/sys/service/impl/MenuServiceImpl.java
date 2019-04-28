@@ -3,6 +3,7 @@ package com.framework.modules.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.framework.common.utils.PojoUtils;
 import com.framework.modules.sys.dao.RoleMenuDao;
 import com.framework.modules.sys.pojo.Menu;
 import com.framework.modules.sys.dao.MenuDao;
@@ -49,6 +50,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int saveMenu(Menu menu) {
+        PojoUtils.changeDate(menu);
+
         if (menu.getId() == null) {
             menuDao.insert(menu);
         } else {

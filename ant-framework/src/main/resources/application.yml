@@ -76,7 +76,7 @@ open:
     - /webjars
     - /swagger
     - /v2
-    - /sys
+#    - /sys
 
 logging:
     level:

@@ -3,6 +3,7 @@ package com.framework.modules.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.framework.common.utils.PageUtils;
+import com.framework.common.utils.PojoUtils;
 import com.framework.common.utils.RequestUtils;
 import com.framework.modules.sys.dao.RoleMenuDao;
 import com.framework.modules.sys.pojo.*;
@@ -64,7 +65,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements IRole
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int saveRole(Role role) {
-
+        PojoUtils.changeDate(role);
         if (role.getId() != null) {
             int rst = roleDao.updateById(role);
             roleMenuDao.delete(new QueryWrapper<RoleMenu>().eq("role_id",role.getId()));

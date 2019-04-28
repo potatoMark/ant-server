@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.framework.common.utils.PageUtils;
+import com.framework.common.utils.PojoUtils;
 import com.framework.common.utils.RequestUtils;
 import com.framework.modules.sys.dao.UserDao;
 import com.framework.modules.sys.dao.UserRoleDao;
@@ -70,10 +71,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
         if (result == null) {
             return null;
         }
-//        更新时间不一致，不允许更新
-//        if (!user.getUpdatedate().equals(user.getUpdatedate())) {
-//            return null;
-//        }
         userDao.updateById(user);
 
         return user;
@@ -137,6 +134,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int saveUser(User user) {
+        PojoUtils.changeDate(user);
 
         if (user.getId() != null) {
             userRoleDao.delete(new QueryWrapper<UserRole>().eq("user_id",user.getId()));
