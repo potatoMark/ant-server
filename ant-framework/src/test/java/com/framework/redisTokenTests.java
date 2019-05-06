@@ -1,19 +1,13 @@
 package com.framework;
 
 import com.framework.common.utils.RedisUtil;
-import com.framework.modules.demo.dao.TablesDao;
-import com.framework.modules.sys.dao.MenuDao;
-import com.framework.modules.sys.dao.RoleDao;
 import com.framework.modules.sys.dao.UserDao;
-import com.framework.modules.sys.dao.UserMapper;
 import com.framework.modules.sys.pojo.User;
-import com.framework.modules.sys.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import sun.awt.windows.ThemeReader;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

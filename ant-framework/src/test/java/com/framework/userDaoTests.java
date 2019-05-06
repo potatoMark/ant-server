@@ -1,9 +1,6 @@
 package com.framework;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.framework.modules.demo.dao.TablesDao;
 import com.framework.modules.sys.dao.MenuDao;
 import com.framework.modules.sys.dao.RoleDao;
 import com.framework.modules.sys.dao.UserDao;
@@ -16,13 +13,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -43,8 +36,6 @@ public class userDaoTests {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private TablesDao tablesDao;
 
 
     @Test

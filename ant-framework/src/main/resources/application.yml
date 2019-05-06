@@ -66,16 +66,18 @@ spring:
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:com/framework/modules/**/dao/*.xml
-#  mapper-locations: classpath:/mapper/**/*Dao.xml
+#  mapper-locations: classpath:/mapper/**/*Dao.xml.vm
 
+#swagger开关
 swagger:
   enable: true
 
+#后台filter URL过滤配置
 open:
   apis:
-    - /webjars
-    - /swagger
-    - /v2
+    - /webjars # swagger静态文件加载路径
+    - /swagger # swagger静态文件加载路径
+    - /v2 # swagger静态文件加载路径
 #    - /sys
 
 logging:

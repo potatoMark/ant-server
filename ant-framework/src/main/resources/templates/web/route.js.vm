@@ -1,0 +1,23 @@
+import Layout from '@/views/layout/Layout'
+
+const ${table.moduleName}Router = {
+  path: '/${table.moduleName}',
+  component: Layout,
+  redirect: '/${table.moduleName}',
+  name: '${moduleName}',
+  meta: {
+    title: '${moduleName}',
+    icon: 'setting'
+
+  },
+  children: [
+    {
+      path: '${table.classname}-list',
+      component: () => import('@/views/modules/${table.moduleName}/${table.classname}/${table.className}-list'),
+      name: '${table.className}List',
+      meta: { title: '${table.className}List' }
+    }
+  ]
+}
+
+export default ${table.moduleName}Router

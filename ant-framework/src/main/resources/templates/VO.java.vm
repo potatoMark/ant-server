@@ -1,0 +1,49 @@
+package ${package}.${table.moduleName}.vo;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import ${package}.${table.moduleName}.pojo.${table.className};
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
+
+/**
+ * <p>
+ * ${table.tableComment} VO实体类
+ * </p>
+ *
+ * @author ${table.author}
+ * @email ${table.email}
+ * @since ${table.createDate}
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class ${table.className}VO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    #foreach($column in $columns)
+    /**
+     * $column.columnComment
+     */
+    private $column.dataType $column.attrname;
+
+    #end
+
+    public ${table.className} getPojo${table.className}(){
+            ${table.className} ${table.classname} = new ${table.className}();
+
+            #foreach($column in $columns)
+            ${table.classname}.set${column.attrName}(this.${column.attrname});
+            #end
+            return ${table.classname};
+
+        }
+
+
+
+}

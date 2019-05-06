@@ -1,0 +1,151 @@
+#set( $V="$" )
+<template>
+  <div class="app-container">
+    <el-alert :closable="false" :title="${V}t('${table.classname}list.title')" type="success" />
+    <AntSimpleTable
+      ref="${table.classname}Table"
+      :tableprops="tableprops"
+      :columns="columns"
+      :page-option="pageOption"
+
+      :load-data-method="loadMethod"
+
+      @selection-change="handleMultipleSelect"
+      @row-dblclick="handlerDblClick"
+    />
+    <el-button-group style="float: left;">
+      <el-button icon="el-icon-search" type="success" size="mini" circle @click="handleOpenSearch" />
+      <el-button icon="el-icon-circle-plus-outline" type="success" size="mini" circle @click="handleOpenAdd" />
+      <el-button icon="el-icon-edit" type="success" size="mini" circle @click="handleOpenEdit" />
+      <el-button icon="el-icon-refresh" type="success" size="mini" circle @click="handleRefresh" />
+      <el-button icon="el-icon-delete" type="success" size="mini" circle @click="handleDelete" />
+      <el-button icon="el-icon-download" type="success" size="mini" circle @click="handleExport" />
+    </el-button-group>
+    <${table.className}Search ref="${table.classname}Search" @on-confirm="handleExtcuteSearch" />
+    <${table.className}Edit ref="${table.classname}Edit" @on-confirm="handleRefresh" />
+  </div>
+
+</template>
+
+<script>
+import AntSimpleTable from '@/components/tables/AntSimpleTable'
+import { get${table.className}Page, delete${table.className}s, get${table.className}sByCondition } from '@/api/modules/${table.moduleName}/${table.classname}'
+import ${table.className}Search from './${table.classname}-search'
+import ${table.className}Edit from './${table.classname}-edit'
+import { renderYmd, renderYmdhms, data2ExcelFormatJson } from '@/utils/index'
+export default {
+  components: { AntSimpleTable, ${table.className}Search, ${table.className}Edit },
+  data() {
+    return {
+      loadMethod: get${table.className}Page,
+      selectArray: [],
+      columns: [
+#foreach($element in $columns)
+        { prop: '$element.attrname', label: this.${V}t('${table.classname}list.${element.attrname}'), align: 'center'#if($element.dataType == "Date"), renderColumn: renderYmd #elseif($element.dataType == "Timestamp"), renderColumn: renderYmdhms #end #if($element.showListModel == "hidden"), hidden: true#end }#if($velocityCount != $columns.size()),#end
+
+#end
+      ],
+
+      tableprops: {
+        datas: [],
+        stripe: true, // 该属性与row-class-name互斥，stripe为true时，row-class-name返回的css无效，不过此方法可以用作它用
+        border: true,
+        height: 300,
+        singleSelect: false,
+        multipleSelect: true,
+        index: false,
+        size: 'small ',
+        emptyText: this.${V}t('${table.classname}list.notfound')
+      },
+
+      condition: {},
+
+      pageOption: [10, 30, 50, 1000], // 每页显示数量选项
+
+      filename: '${table.className}List'
+
+    }
+  },
+  created() {
+  },
+  mounted() {
+
+  },
+  methods: {
+    handleExport() {
+      get${table.className}sByCondition(this.condition).then(res => {
+        const list = res.data.result
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = [#foreach($element in $columns)#if($velocityCount == $columns.size()) '$element.attrname'#else '$element.attrname',#end#end]
+          const filterVal = [#foreach($element in $columns)#if($velocityCount == $columns.size()) '$element.attrname'#else '$element.attrname',#end#end]
+          const data = data2ExcelFormatJson(filterVal, list)
+          excel.export_json_to_excel({
+            header: tHeader,
+            data,
+            filename: this.filename,
+            autoWidth: true,
+            bookType: 'xlsx'
+          })
+        })
+      })
+    },
+    handleOpenAdd() {
+      this.${V}refs.${table.classname}Edit.handleShow()
+    },
+    handlerDblClick({ row, column, event }) {
+      this.${V}refs.${table.classname}Edit.handleShow(row.${pk.attrname})
+    },
+    handleOpenEdit() {
+      if (this.selectArray.length === 0) {
+        this.${V}message.error(this.${V}t('${table.classname}list.selectOne'))
+        return
+      }
+
+      if (this.selectArray.length > 1) {
+        this.${V}message.error(this.${V}t('${table.classname}list.notselectmultipledata'))
+        return
+      }
+
+      this.${V}refs.${table.classname}Edit.handleShow(this.selectArray[0].${pk.attrname})
+    },
+    handleExtcuteSearch(form) {
+      this.condition = form
+      this.${V}refs.${table.classname}Table.handleSearch(this.condition)
+    },
+    handleOpenSearch() {
+      this.${V}refs.${table.classname}Search.handleShow()
+    },
+    handleRefresh() {
+      this.${V}refs.${table.classname}Table.loadData()
+    },
+    handleDelete() {
+      if (this.selectArray.length === 0) {
+        this.${V}message.error(this.${V}t('${table.classname}list.selectOne'))
+        return
+      }
+      const ${pk.attrname}s = []
+      this.selectArray.forEach(row => {
+        ${pk.attrname}s.push(row.${pk.attrname})
+      })
+      this.${V}confirm(this.${V}t('${table.classname}list.deleteconfirm'), this.${V}t('${table.classname}list.tips'), {
+        confirmButtonText: this.${V}t('${table.classname}list.confirm'),
+        cancelButtonText: this.${V}t('${table.classname}list.cancel'),
+        type: 'warning'
+      }).then(() => {
+        delete${table.className}s(${pk.attrname}s).then(res => {
+          this.${V}message.success(this.${V}t('${table.classname}list.deletesuccess'))
+          this.handleRefresh()
+          this.selectArray = []
+        })
+      })
+    },
+    handleMultipleSelect(selArray) {
+      this.selectArray = selArray
+    }
+
+  }
+}
+</script>
+
+<style>
+</style>

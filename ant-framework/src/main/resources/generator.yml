@@ -1,0 +1,6 @@
+generate:
+  int: Long
+  varchar: String
+  date: Date
+  timestamp: Timestamp
+  packageName: com.framework.modules

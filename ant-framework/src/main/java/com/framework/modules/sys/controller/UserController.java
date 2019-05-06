@@ -29,6 +29,7 @@ import java.util.*;
  * </p>
  *
  * @author Mark
+ * @email mark.make@hotmail.com
  * @since 2018-10-02
  */
 @Api("用户信息管理")

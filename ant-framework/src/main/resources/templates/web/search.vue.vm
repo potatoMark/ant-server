@@ -1,0 +1,59 @@
+#set( $V="$" )
+<template>
+
+  <el-dialog
+    :visible.sync="dialogVisible"
+    width="30%"
+  >
+    <span slot="title">
+      <i class="el-icon-search" />
+      <strong>{{ ${V}t('common.search') }}</strong>
+    </span>
+    <el-form v-model="form" label-position="right" label-width="80px">
+
+#foreach($element in $searchColumns)
+      <el-form-item :label="${V}t('${table.classname}edit.${element.attrname}')">
+        <el-input v-model="form.${element.attrname}" />
+      </el-form-item>
+#end
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="handleReset">{{ ${V}t('common.button.reset') }}</el-button>
+      <el-button type="primary" @click="handleConfirm">{{ ${V}t('common.button.confirm') }}</el-button>
+    </span>
+  </el-dialog>
+
+</template>
+<script>
+export default {
+  name: '${table.className}Search',
+  data() {
+    return {
+      dialogVisible: false,
+      form: {
+#foreach($element in $searchColumns)
+       ${element.attrname}:null#if($velocityCount != $searchColumns.size()),#end
+
+#end
+      }
+    }
+  },
+  methods: {
+    handleReset() {
+      this.form = {
+#foreach($element in $searchColumns)
+       ${element.attrname}:null#if($velocityCount != $searchColumns.size()),#end
+
+#end
+      }
+    },
+    handleShow() {
+      this.dialogVisible = true
+    },
+    handleConfirm() {
+      this.${V}emit('on-confirm', this.form)
+      this.dialogVisible = false
+    }
+  }
+}
+</script>

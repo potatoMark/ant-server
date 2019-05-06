@@ -1,0 +1,235 @@
+#set( $V="$" )
+<template>
+
+  <el-dialog
+    v-el-drag-dialog
+    :visible.sync="dialogVisible"
+    width="65%"
+  >
+    <span slot="title">
+      <i class="el-icon-edit" />
+      <strong>{{ ${V}t('${table.classname}edit.tips') }}</strong>
+    </span>
+    <el-form ref="${table.className}EditForm" :model="form" :rules="rules" label-position="left" :inline="true" label-width="80px">
+      <el-tabs v-model="activeName" :tab-position="'right'">
+        <el-tab-pane :label="${V}t('${table.classname}edit.tabPaneBasic')" name="basic">
+
+#foreach($element in $columns)
+#if($element.showEdit)
+#if($element.showEditModel == "hidden")
+#if($history)
+#if($element.attrname == "createuser" || $element.attrname == "updateuser"
+    || $element.attrname == "createdate" || $element.attrname == "updatedate")
+#continue
+#end
+#end
+            <el-form-item v-show="false" prop="$element.attrname" label="$element.attrname">
+              <el-input v-model="form.$element.attrname" />
+            </el-form-item>
+#end
+#end
+#end
+
+#set($loop = 0)
+#foreach($element in $columns)
+#if($element.showEdit)
+#if($element.showEditModel != "hidden" && !($history &&($element.attrname == "createuser" || $element.attrname == "updateuser"
+                                              || $element.attrname == "createdate" || $element.attrname == "updatedate")))
+#set($mathrst = $loop % 2)
+#if($mathrst == 0)
+            <el-row>
+              <el-col :span="10">
+                <el-form-item prop="${element.attrname}" :label="${V}t('${table.classname}edit.${element.attrname}')">
+#if($element.editComponent == "date")
+                  <el-date-picker v-model="form.${element.attrname}" type="date" :placeholder="${V}t('common.placeholderSelect')" />
+#elseif($element.editComponent == "datetime")
+                  <el-date-picker v-model="form.${element.attrname}" type="datetime" :placeholder="${V}t('common.placeholderSelect')" />
+#elseif($element.editComponent == "select")
+                  <el-select v-model="form.${element.attrname}" :placeholder="${V}t('common.placeholderSelect')" >
+                    <el-option
+                      v-for="item in ${element.attrname}Options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+#else
+                  <el-input v-model="form.${element.attrname}" />
+#end
+                </el-form-item>
+              </el-col>
+#if($velocityCount == $columns.size())
+            </el-row>
+#end
+#set($loop = $loop + 1)
+#else
+#if($velocityCount == $columns.size())
+            <el-row>
+#end
+              <el-col :span="12">
+                <el-form-item prop="${element.attrname}" :label="${V}t('${table.classname}edit.${element.attrname}')">
+#if($element.editComponent == "date")
+                <el-date-picker v-model="form.${element.attrname}" type="date" :placeholder="${V}t('common.placeholderSelect')" />
+#elseif($element.editComponent == "datetime")
+                <el-date-picker v-model="form.${element.attrname}" type="datetime" :placeholder="${V}t('common.placeholderSelect')" />
+#elseif($element.editComponent == "select")
+                <el-select v-model="form.${element.attrname}" :placeholder="${V}t('common.placeholderSelect')" >
+                  <el-option
+                    v-for="item in ${element.attrname}Options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+#else
+                <el-input v-model="form.${element.attrname}" />
+#end
+                </el-form-item>
+              </el-col>
+            </el-row>
+#set($loop = $loop + 1)
+#end
+#end
+#end
+#end
+        </el-tab-pane>
+#if($history)
+        <el-tab-pane :label="${V}t('${table.classname}edit.tabPaneMore')" name="more">
+          <el-form-item prop="createdate" :label="${V}t('${table.classname}edit.createdate')">
+            <el-date-picker
+              v-model="form.createdate"
+              disabled
+              type="datetime"
+              :placeholder="${V}t('common.placeholderSelect')"
+            />
+          </el-form-item>
+          <el-form-item prop="createuser" :label="${V}t('${table.classname}edit.createuser')">
+            <el-input v-model="form.createuser" disabled />
+          </el-form-item>
+
+          <el-form-item prop="updatedate" :label="${V}t('${table.classname}edit.updatedate')">
+            <el-date-picker
+              v-model="form.updatedate"
+              disabled
+              type="datetime"
+              :placeholder="${V}t('common.placeholderSelect')"
+            />
+          </el-form-item>
+          <el-form-item prop="updateuser" :label="${V}t('${table.classname}edit.updateuser')">
+            <el-input v-model="form.updateuser" disabled />
+          </el-form-item>
+
+        </el-tab-pane>
+#end
+      </el-tabs>
+    </el-form>
+
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="handleReset">{{ ${V}t('common.button.reset') }}</el-button>
+      <el-button type="primary" @click="handleConfirm">{{ ${V}t('common.button.confirm') }}</el-button>
+    </span>
+  </el-dialog>
+
+</template>
+<script>
+import { save${table.className}, get${table.className}By${pk.attrName} } from '@/api/modules/${table.moduleName}/${table.classname}'
+
+export default {
+
+  name: '${table.className}Edit',
+  data() {
+    return {
+      dialogVisible: false,
+      activeName: 'basic',
+      form: {
+#foreach($element in $editColumns)
+        ${element.attrname}: null#if($velocityCount != $editColumns.size()),#end
+
+#end
+      },
+      formShadow: {
+#foreach($element in $editColumns)
+        ${element.attrname}: null#if($velocityCount != $editColumns.size()),#end
+
+#end
+      },
+#foreach($element in $editColumns)
+#if($element.editComponent == "select")
+      ${element.attrname}Options:[
+#foreach($child in $element.options)
+         {label:'$child', value:'$child'}#if($velocityCount != $element.options.size()),#end
+
+#end
+      ],
+#end
+#end
+
+      rules: {
+#foreach($element in $editShowColumns)
+        $element.attrname: [
+          { required: true, message: this.${V}t('validator.notempty'), trigger: 'blur' }
+        ]#if($velocityCount != $element.size()),#end
+
+#end
+      }
+
+
+    }
+  },
+  updated() {
+    if (this.formShadow) {
+      this.form = this.formShadow
+      this.formShadow = undefined
+    }
+  },
+  methods: {
+    handleReset() {
+      this.${V}nextTick(() => {
+        if (this.${V}refs.${table.className}EditForm) {
+          this.${V}refs.${table.className}EditForm.resetFields()
+        }
+      })
+    },
+    handleShow(key) {
+      this.activeName = 'basic'
+
+      if (key) {
+          get${table.className}By${pk.attrName}(key).then(res => {
+            const data = res.data.result
+            this.formShadow = data
+
+            this.dialogVisible = true
+            this.${V}nextTick(() => {
+              this.${V}refs.${table.className}EditForm.clearValidate()
+            })
+          })
+      } else {
+        this.dialogVisible = true
+
+        this.handleReset()
+      }
+    },
+    handleConfirm() {
+      // 校验
+      this.${V}refs.${table.className}EditForm.validate((flg, params) => {
+        if (!flg) {
+          this.${V}message.error(this.${V}t('validator.validatorfailure'))
+          return
+        }
+        // 写入数据库
+        save${table.className}(this.form).then(res => {
+          const code = res.data.code
+          if (code === 200) {
+            this.handleReset()
+            this.dialogVisible = false
+            this.${V}message.success(this.${V}t('validator.savesuccess'))
+            this.${V}emit('on-confirm')
+          } else {
+            this.${V}message.error(this.${V}t('validator.savefailurehappenerror') + res.data.msg)
+          }
+        })
+      })
+    }
+  }
+}
+</script>

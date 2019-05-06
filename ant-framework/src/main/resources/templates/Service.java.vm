@@ -1,0 +1,33 @@
+package ${package}.${table.moduleName}.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.framework.common.utils.PageUtils;
+import com.framework.common.utils.RequestUtils;
+import ${package}.${table.moduleName}.pojo.${table.className};
+import ${package}.${table.moduleName}.vo.${table.className}VO;
+
+import java.util.List;
+
+/**
+ * <p>
+ * ${table.tableComment} Service
+ * </p>
+ *
+ * @author ${table.author}
+ * @email ${table.email}
+ * @since ${table.createDate}
+ */
+public interface I${table.className}Service extends IService<${table.className}> {
+
+    public List<${table.className}> get${table.className}s();
+
+    PageUtils queryPage(RequestUtils params);
+
+    public int delete${table.className}s(List<${pk.dataType}> ${table.classname}${pk.attrName}s);
+
+    public int save${table.className}(${table.className} ${table.classname});
+
+    public ${table.className} get${table.className}(${pk.dataType} ${pk.attrname});
+
+    public List<${table.className}> get${table.className}sByCondition(${table.className}VO ${table.classname}VO);
+}

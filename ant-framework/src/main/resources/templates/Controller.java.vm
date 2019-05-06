@@ -1,0 +1,72 @@
+package ${package}.${table.moduleName}.controller;
+
+
+import com.framework.common.utils.PageUtils;
+import com.framework.common.utils.R;
+import com.framework.common.utils.RequestUtils;
+import ${package}.${table.moduleName}.pojo.${table.className};
+import ${package}.${table.moduleName}.vo.${table.className}VO;
+import ${package}.${table.moduleName}.service.I${table.className}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * <p>
+ * ${table.tableComment} 前端控制器
+ * </p>
+ *
+ * @author ${table.author}
+ * @email ${table.email}
+ * @since ${table.createDate}
+ */
+@RestController
+@RequestMapping("/${table.moduleName}")
+public class ${table.className}Controller {
+
+    @Autowired
+    I${table.className}Service ${table.classname}Service;
+
+    @GetMapping("/${table.classname}s")
+    public R get${table.className}s(){
+
+        return R.ok().putResult(${table.classname}Service.get${table.className}s());
+    }
+
+    @PostMapping("/${table.classname}s/page")
+    public R get${table.className}List(@RequestBody RequestUtils<${table.className}VO> params){
+        PageUtils page = ${table.classname}Service.queryPage(params);
+        return R.ok().putResult(page);
+    }
+
+    @DeleteMapping("/${table.classname}s/delete")
+    public R delete${table.className}(@RequestParam List<${pk.dataType}> ${table.classname}${pk.attrName}s){
+        int rst = ${table.classname}Service.delete${table.className}s(${table.classname}${pk.attrName}s);
+        return R.ok().putResult(rst);
+    }
+
+    @PostMapping("/${table.classname}s/save")
+    public R save${table.className}(@RequestBody ${table.className}VO ${table.classname}VO){
+        ${table.className} ${table.classname} = ${table.classname}VO.getPojo${table.className}();
+        int rst = ${table.classname}Service.save${table.className}(${table.classname});
+        return R.ok();
+    }
+
+    @GetMapping("/${table.classname}s/{${pk.attrname}}")
+    public R get${table.className}(@PathVariable(name="${pk.attrname}", required = true) ${pk.dataType} ${pk.attrname}){
+
+        ${table.className} ${table.classname} = ${table.classname}Service.get${table.className}(${pk.attrname});
+
+        return R.ok().putResult(${table.classname});
+    }
+
+
+    @PostMapping(value = "/${table.classname}s/get${table.className}sByCondition")
+    public R get${table.className}sByCondition(@RequestBody ${table.className}VO ${table.classname}VO) throws Exception {
+
+        List<${table.className}> ${table.classname}s = ${table.classname}Service.get${table.className}sByCondition(${table.classname}VO);
+
+        return R.ok().putResult(${table.classname}s);
+    }
+}

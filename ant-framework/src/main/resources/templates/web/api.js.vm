@@ -1,0 +1,46 @@
+import request from '@/utils/request'
+
+export const get${table.className}s = () => {
+  return request.request({
+    url: '/api/${table.moduleName}/${table.classname}s',
+    method: 'get'
+  })
+}
+
+export const get${table.className}Page = (data) => {
+  return request.request({
+    url: '/api/${table.moduleName}/${table.classname}s/page',
+    data,
+    method: 'post'
+  })
+}
+
+export const delete${table.className}s = (${pk.attrname}s) => {
+  return request.request({
+    url: '/api/${table.moduleName}/${table.classname}s/delete?${table.classname}${pk.attrName}s=' + ${pk.attrname}s,
+    method: 'delete'
+  })
+}
+
+export function save${table.className}(data) {
+  return request({
+    url: '/api/${table.moduleName}/${table.classname}s/save',
+    method: 'post',
+    data
+  })
+}
+
+export const get${table.className}By${pk.attrName} = (${pk.attrname}) => {
+  return request.request({
+    url: '/api/${table.moduleName}/${table.classname}s/' + ${pk.attrname},
+    method: 'get'
+  })
+}
+
+export const get${table.className}sByCondition = (data) => {
+  return request.request({
+    url: '/api/${table.moduleName}/${table.classname}s/get${table.className}sByCondition',
+    data,
+    method: 'post'
+  })
+}

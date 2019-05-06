@@ -1,12 +1,10 @@
 package com.framework;
 
-import com.framework.modules.demo.dao.TablesDao;
 import com.framework.modules.sys.dao.MenuDao;
 import com.framework.modules.sys.dao.RoleDao;
 import com.framework.modules.sys.dao.UserDao;
 import com.framework.modules.sys.dao.UserMapper;
 import com.framework.modules.sys.pojo.Menu;
-import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.service.IMenuService;
 import com.framework.modules.sys.service.IUserService;
 import org.junit.Test;
@@ -39,9 +37,6 @@ public class menuDaoTests {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private TablesDao tablesDao;
 
 
     @Test

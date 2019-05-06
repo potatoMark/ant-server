@@ -1,8 +1,11 @@
 package com.framework.common.utils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PojoUtils {
 

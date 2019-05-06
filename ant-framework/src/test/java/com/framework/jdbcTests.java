@@ -1,17 +1,9 @@
 package com.framework;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.framework.common.utils.PageUtils;
-import com.framework.modules.demo.dao.TablesDao;
-import com.framework.modules.demo.pojo.Tables;
 import com.framework.modules.sys.dao.MenuDao;
 import com.framework.modules.sys.dao.RoleDao;
 import com.framework.modules.sys.dao.UserDao;
 import com.framework.modules.sys.dao.UserMapper;
-import com.framework.modules.sys.pojo.Menu;
-import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -42,9 +33,6 @@ public class jdbcTests {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private TablesDao tablesDao;
 
 
     @Test

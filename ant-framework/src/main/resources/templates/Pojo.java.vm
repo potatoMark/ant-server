@@ -1,0 +1,46 @@
+package ${package}.${table.moduleName}.pojo;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
+
+/**
+ * <p>
+ * ${table.tableComment} POJO实体类
+ * </p>
+ *
+ * @author ${table.author}
+ * @email ${table.email}
+ * @since ${table.createDate}
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@TableName("${table.tableName}")
+public class ${table.className} implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    #foreach($column in $columns)
+    /**
+     * $column.columnComment
+     */
+    #if($column.columnName == $pk.columnName)
+    @TableId(value = "$pk.columnName", type = IdType.AUTO)
+    #else
+    @TableField(value="$column.columnName")
+    #end
+    private $column.dataType $column.attrname;
+    #end
+
+
+
+}
