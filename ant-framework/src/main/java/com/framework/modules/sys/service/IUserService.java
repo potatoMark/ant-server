@@ -39,4 +39,6 @@ public interface IUserService extends IService<User> {
     public int saveUser(User user);
 
     public List<User> getUsersByCondition(UserVO userVO);
+
+    public int updateLastLoginTime(User user);
 }

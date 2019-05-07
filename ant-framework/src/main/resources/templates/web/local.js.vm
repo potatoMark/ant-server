@@ -1,50 +1,26 @@
 export default {
   zh: {
-    ${table.classname}list: {
-      title: '${table.tableComment}信息一览',
-      #foreach($column in $columns)
-${column.attrname}: '$column.columnComment',
-      #end
-      notfound: '未查询到数据',
-      selectOne: '请选择一条数据',
-      notselectmultipledata: '不能选择多条数据',
-      deleteconfirm: '此操作将会删除选中数据, 是否继续?',
-      tips: '提示',
-      confirm: '确定',
-      cancel: '取消',
-      deletesuccess: '删除成功'
-    },
-    ${table.classname}edit: {
-      tips: '新增/编辑/详细',
-      #foreach($column in $columns)
-${column.attrname}: '$column.columnComment',
-      #end
-      tabPaneBasic: '基础',
-      tabPaneMore: '更多'
+    ${table.moduleName}:{
+        ${table.classname}: {
+            title: '${table.tableComment}信息一览',
+            tips: '新增/编辑/详细',
+#foreach($column in $columns)
+            ${column.attrname}: '$column.columnComment'#if($velocityCount != $columns.size()),#end
+#end
+        }
     }
+
   },
   en: {
-    ${table.classname}list: {
-      title: '${table.className} information list',
-      #foreach($column in $columns)
-${column.attrname}: '$column.attrname',
-      #end
-      notfound: 'Not found data',
-      selectOne: 'Please select at least one data',
-      notselectmultipledata: 'Multiple data selection is not allowed',
-      deleteconfirm: 'This operation will be delete this selected data,confirmed to delete?',
-      tips: 'Tips',
-      confirm: 'Confirm',
-      cancel: 'Cancel',
-      deletesuccess: 'Delete Success'
-    },
-    ${table.classname}edit: {
-      tips: 'New/Update/Detail',
-      #foreach($column in $columns)
-${column.attrname}: '$column.attrname',
-      #end
-      tabPaneBasic: 'basic',
-      tabPaneMore: 'more'
-    }
+      ${table.moduleName}:{
+          ${table.classname}: {
+            title: '${table.className} information list',
+            tips: 'New/Update/Detail',
+            #foreach($column in $columns)
+    ${column.attrname}: '$column.attrname'#if($velocityCount != $columns.size()),#end
+            #end
+          }
+      }
+
   }
 }

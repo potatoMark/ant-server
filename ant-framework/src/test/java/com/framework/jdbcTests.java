@@ -1,5 +1,7 @@
 package com.framework;
 
+import com.framework.modules.dev.dao.DevCarDao;
+import com.framework.modules.dev.pojo.DevCar;
 import com.framework.modules.sys.dao.MenuDao;
 import com.framework.modules.sys.dao.RoleDao;
 import com.framework.modules.sys.dao.UserDao;
@@ -7,17 +9,25 @@ import com.framework.modules.sys.dao.UserMapper;
 import com.framework.modules.sys.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class jdbcTests {
+
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+
+
 
     @Autowired
     private UserDao userDao;
@@ -34,9 +44,12 @@ public class jdbcTests {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    DevCarDao devCarDao;
 
     @Test
     public void testSelect() {
+
 //        List<UserVO> userList = userDao.selectList(null);
 //        userList.forEach(
 //            (sysUser)->{
@@ -62,14 +75,14 @@ public class jdbcTests {
 //        User user = new User();
 //        user.setSex(1);
 //        IPage<User> iPage = userMapper.loadUserPage(new Page<User>(1,2), user);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("123456"));
-
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("_page","1");
-        params.put("_limit","2");
-//        params.put("username","李四");
-        params.put("usercode","00002");
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        System.out.println(encoder.encode("123456"));
+//
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("_page","1");
+//        params.put("_limit","2");
+////        params.put("username","李四");
+//        params.put("usercode","00002");
 //        PageUtils pageUtils = userService.queryPage(params);
 //        System.out.println(pageUtils);
     }

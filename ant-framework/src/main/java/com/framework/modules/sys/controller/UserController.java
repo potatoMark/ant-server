@@ -115,10 +115,4 @@ public class UserController {
         return R.ok().putResult(users);
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public void login(HttpServletRequest requestLoginUser){
-
-        System.out.println(1);
-    }
-
 }

@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @version V1.0.0
@@ -77,6 +79,9 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
                 // 将权限写入本次会话
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                //更新最后活跃时间
+                userService.updateLastLoginTime(user);
             }
             if (!_ACTIVE_.equals(user.getStatus())){
                 httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

@@ -7,12 +7,12 @@
   >
     <span slot="title">
       <i class="el-icon-search" />
-      <strong>{{ ${V}t('common.search') }}</strong>
+      <strong>{{ ${V}t('common.tips.search') }}</strong>
     </span>
     <el-form v-model="form" label-position="right" label-width="80px">
 
 #foreach($element in $searchColumns)
-      <el-form-item :label="${V}t('${table.classname}edit.${element.attrname}')">
+      <el-form-item :label="${V}t('${table.moduleName}.${table.classname}.${element.attrname}')">
         <el-input v-model="form.${element.attrname}" />
       </el-form-item>
 #end

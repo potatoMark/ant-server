@@ -1,7 +1,7 @@
 #set( $V="$" )
 <template>
   <div class="app-container">
-    <el-alert :closable="false" :title="${V}t('${table.classname}list.title')" type="success" />
+    <el-alert :closable="false" :title="${V}t('${table.moduleName}.${table.classname}.title')" type="success" />
     <AntSimpleTable
       ref="${table.classname}Table"
       :tableprops="tableprops"
@@ -41,7 +41,7 @@ export default {
       selectArray: [],
       columns: [
 #foreach($element in $columns)
-        { prop: '$element.attrname', label: this.${V}t('${table.classname}list.${element.attrname}'), align: 'center'#if($element.dataType == "Date"), renderColumn: renderYmd #elseif($element.dataType == "Timestamp"), renderColumn: renderYmdhms #end #if($element.showListModel == "hidden"), hidden: true#end }#if($velocityCount != $columns.size()),#end
+        { prop: '$element.attrname', label: this.${V}t('${table.moduleName}.${table.classname}.${element.attrname}'), align: 'center'#if($element.dataType == "Date"), renderColumn: renderYmd #elseif($element.dataType == "Timestamp"), renderColumn: renderYmdhms #end #if($element.showListModel == "hidden"), hidden: true#end }#if($velocityCount != $columns.size()),#end
 
 #end
       ],
@@ -55,7 +55,7 @@ export default {
         multipleSelect: true,
         index: false,
         size: 'small ',
-        emptyText: this.${V}t('${table.classname}list.notfound')
+        emptyText: this.${V}t('common.msg.notfound')
       },
 
       condition: {},
@@ -97,12 +97,12 @@ export default {
     },
     handleOpenEdit() {
       if (this.selectArray.length === 0) {
-        this.${V}message.error(this.${V}t('${table.classname}list.selectOne'))
+        this.${V}message.error(this.${V}t('common.msg.selectOne'))
         return
       }
 
       if (this.selectArray.length > 1) {
-        this.${V}message.error(this.${V}t('${table.classname}list.notselectmultipledata'))
+        this.${V}message.error(this.${V}t('common.msg.notselectmultipledata'))
         return
       }
 
@@ -120,20 +120,20 @@ export default {
     },
     handleDelete() {
       if (this.selectArray.length === 0) {
-        this.${V}message.error(this.${V}t('${table.classname}list.selectOne'))
+        this.${V}message.error(this.${V}t('common.msg.selectOne'))
         return
       }
       const ${pk.attrname}s = []
       this.selectArray.forEach(row => {
         ${pk.attrname}s.push(row.${pk.attrname})
       })
-      this.${V}confirm(this.${V}t('${table.classname}list.deleteconfirm'), this.${V}t('${table.classname}list.tips'), {
-        confirmButtonText: this.${V}t('${table.classname}list.confirm'),
-        cancelButtonText: this.${V}t('${table.classname}list.cancel'),
+      this.${V}confirm(this.${V}t('common.msg.deleteconfirm'), this.${V}t('common.tips.tips'), {
+        confirmButtonText: this.${V}t('common.button.confirm'),
+        cancelButtonText: this.${V}t('common.button.cancel'),
         type: 'warning'
       }).then(() => {
         delete${table.className}s(${pk.attrname}s).then(res => {
-          this.${V}message.success(this.${V}t('${table.classname}list.deletesuccess'))
+          this.${V}message.success(this.${V}t('common.msg.deletesuccess'))
           this.handleRefresh()
           this.selectArray = []
         })

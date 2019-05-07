@@ -7,6 +7,10 @@ import com.framework.common.utils.RequestUtils;
 import ${package}.${table.moduleName}.pojo.${table.className};
 import ${package}.${table.moduleName}.vo.${table.className}VO;
 import ${package}.${table.moduleName}.service.I${table.className}Service;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +25,7 @@ import java.util.List;
  * @email ${table.email}
  * @since ${table.createDate}
  */
+ @Api("${table.tableComment}")
 @RestController
 @RequestMapping("/${table.moduleName}")
 public class ${table.className}Controller {
@@ -34,18 +39,24 @@ public class ${table.className}Controller {
         return R.ok().putResult(${table.classname}Service.get${table.className}s());
     }
 
+    @ApiOperation("按照分页的方式查询${table.tableComment}信息")
+    @ApiImplicitParam(name = "params", value = "查询条件", dataType = "RequestUtils<${table.className}VO>")
     @PostMapping("/${table.classname}s/page")
     public R get${table.className}List(@RequestBody RequestUtils<${table.className}VO> params){
         PageUtils page = ${table.classname}Service.queryPage(params);
         return R.ok().putResult(page);
     }
 
+    @ApiOperation("批量删除${table.tableComment}")
+    @ApiImplicitParam(name = "${table.classname}${pk.attrName}s", value = "多个${pk.attrName}信息", dataType = "List<${pk.dataType}>")
     @DeleteMapping("/${table.classname}s/delete")
     public R delete${table.className}(@RequestParam List<${pk.dataType}> ${table.classname}${pk.attrName}s){
         int rst = ${table.classname}Service.delete${table.className}s(${table.classname}${pk.attrName}s);
         return R.ok().putResult(rst);
     }
 
+    @ApiOperation("更新/新增${table.tableComment}")
+    @ApiImplicitParam(name = "${table.classname}VO", value = "${table.tableComment}传输VO", dataType = "${table.className}VO")
     @PostMapping("/${table.classname}s/save")
     public R save${table.className}(@RequestBody ${table.className}VO ${table.classname}VO){
         ${table.className} ${table.classname} = ${table.classname}VO.getPojo${table.className}();
@@ -53,6 +64,8 @@ public class ${table.className}Controller {
         return R.ok();
     }
 
+    @ApiOperation("根据${pk.attrname}查询${table.tableComment}")
+    @ApiImplicitParam(name = "${pk.attrname}", value = "${pk.columnComment}", dataType = "${pk.dataType}")
     @GetMapping("/${table.classname}s/{${pk.attrname}}")
     public R get${table.className}(@PathVariable(name="${pk.attrname}", required = true) ${pk.dataType} ${pk.attrname}){
 
@@ -62,6 +75,8 @@ public class ${table.className}Controller {
     }
 
 
+    @ApiOperation("根据条件查询${table.tableComment}")
+    @ApiImplicitParam(name = "${table.classname}VO", value = "${table.tableComment}传输VO", dataType = "${table.className}VO")
     @PostMapping(value = "/${table.classname}s/get${table.className}sByCondition")
     public R get${table.className}sByCondition(@RequestBody ${table.className}VO ${table.classname}VO) throws Exception {
 

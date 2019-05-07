@@ -29,6 +29,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,5 +178,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
                 .like(StringUtils.isNotBlank(userVO.getPhone()),"phone",userVO.getPhone())
                 .like(userVO.getStatus() !=null,"status",userVO.getStatus())
         );
+    }
+
+    @Override
+    public int updateLastLoginTime(User user) {
+        User u =new User();
+        u.setLastlogin(new Timestamp(new Date().getTime()));
+        u.setId(user.getId());
+        return userDao.updateById(u);
     }
 }
