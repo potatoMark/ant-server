@@ -1,17 +1,15 @@
 package com.framework.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.BeanUtil;
-import com.framework.common.utils.Base64Util;
 import com.framework.common.utils.R;
 import com.framework.common.utils.RedisUtil;
 import com.framework.common.utils.UserUtils;
-import com.framework.common.utils.token.TokenUtils;
+import com.framework.common.utils.TokenUtils;
 import com.framework.modules.sys.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -30,6 +28,12 @@ public class AuthenticationLoginSuccessHandler implements AuthenticationSuccessH
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    TokenUtils tokenUtils;
+
+    @Value("${token.expiration}")
+    private Long _TIMEOUT_;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         httpServletResponse.setContentType("application/json;charset=utf-8");
@@ -40,13 +44,9 @@ public class AuthenticationLoginSuccessHandler implements AuthenticationSuccessH
         String token = "";
         try {
 
-          token = TokenUtils.getToken(user);
+          token = tokenUtils.generateToken(user.getUsercode());
 
-          String jwt = new String (Base64Util.decryptBASE64(token));
-
-          String signature = jwt.split("\\.")[2];
-
-          redisUtil.set(signature,user.getId(),60 * 30);
+          redisUtil.set(user.getUsercode(),token, _TIMEOUT_);
 
         }catch (Exception e) {
             logger.error("Token generate error",e);

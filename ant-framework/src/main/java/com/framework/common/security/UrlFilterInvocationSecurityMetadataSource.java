@@ -37,6 +37,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
 //                return SecurityConfig.createList(values);
 //            }
 //        }
+
         //没有匹配上的资源，都是登录访问
         return SecurityConfig.createList("ROLE_LOGIN");
     }

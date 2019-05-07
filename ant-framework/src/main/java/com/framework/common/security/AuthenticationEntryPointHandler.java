@@ -2,10 +2,8 @@ package com.framework.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.common.utils.R;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -23,7 +21,7 @@ public class AuthenticationEntryPointHandler implements AuthenticationEntryPoint
         resp.setContentType("application/json;charset=UTF-8");
         PrintWriter out = resp.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
-        out.write(objectMapper.writeValueAsString(R.error(401,"请先登录")));
+        out.write(objectMapper.writeValueAsString(R.error(603,"访问被拒绝,客户端试图未经授权访问受保护的页面")));
         out.flush();
         out.close();
     }

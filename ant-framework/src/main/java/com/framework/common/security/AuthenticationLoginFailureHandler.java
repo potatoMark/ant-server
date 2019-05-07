@@ -23,16 +23,16 @@ public class AuthenticationLoginFailureHandler implements AuthenticationFailureH
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
 
         httpServletResponse.setContentType("application/json;charset=utf-8");
-//        httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         PrintWriter out = httpServletResponse.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
         if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
 
-            out.write(objectMapper.writeValueAsString(R.error("用户名/密码错误")));
+            out.write(objectMapper.writeValueAsString(R.error(604,"用户名/密码错误")));
         } else if (e instanceof DisabledException) {
-            out.write(objectMapper.writeValueAsString(R.error("账户被禁用,请联系管理员!")));
+            out.write(objectMapper.writeValueAsString(R.error(604,"账户被禁用,请联系管理员!")));
         } else {
-            out.write(objectMapper.writeValueAsString(R.error("登录异常,请联系管理员")));
+            out.write(objectMapper.writeValueAsString(R.error(604,"登录异常,请联系管理员")));
         }
         out.flush();
         out.close();

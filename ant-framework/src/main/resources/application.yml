@@ -84,3 +84,10 @@ logging:
     level:
         root: info
         io.swagger.models.parameters.AbstractSerializableParameter: error
+
+# token
+token:
+  secret: secret
+  expiration: 60
+  header: X-Token
+  enable-redis: false

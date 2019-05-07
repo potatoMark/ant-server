@@ -2,7 +2,7 @@ package com.framework.modules.sys.controller;
 
 
 import com.framework.common.utils.*;
-import com.framework.common.utils.token.TokenUtils;
+import com.framework.common.utils.TokenUtils;
 import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.service.IUserService;
 import com.framework.modules.sys.vo.UserVO;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -42,6 +43,9 @@ public class UserController {
 
     @Autowired
     RedisUtil redisUtil;
+
+    @Autowired
+    TokenUtils tokenUtils;
 
     @ApiOperation("获取所有用户信息")
     @GetMapping("/users")
@@ -95,21 +99,10 @@ public class UserController {
 
     @PostMapping("/users/userinfo")
     public R getUserByToken(@RequestParam String token) throws Exception {
-        String jwt = new String (Base64Util.decryptBASE64(token));
-        boolean flg = TokenUtils.verifyJWT(token);
-        if (flg) {
-            String signature = jwt.split("\\.")[2];
-            //根据signature去redis找出用户编码信息，
-            Long userId = (Long) redisUtil.get(signature);
-            if (userId == null) {
-                return R.error(403,"user login time out");
-            }
-            User user = userService.getUser(userId);
+        String usercode = tokenUtils.getUsercodeFromToken(token);
+        User user = userService.getUserByUserCode(usercode);
 
-            return R.ok().putResult(user);
-        } else {
-            return R.error();
-        }
+        return R.ok().putResult(user);
     }
 
     @ApiOperation("根据条件查询用户信息")
@@ -120,6 +113,12 @@ public class UserController {
         List<User> users = userService.getUsersByCondition(userVO);
 
         return R.ok().putResult(users);
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public void login(HttpServletRequest requestLoginUser){
+
+        System.out.println(1);
     }
 
 }

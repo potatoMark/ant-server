@@ -1,14 +1,11 @@
 package com.framework.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.framework.common.utils.Base64Util;
-import com.framework.common.utils.R;
-import com.framework.common.utils.RedisUtil;
-import com.framework.common.utils.UserUtils;
-import com.framework.common.utils.token.TokenUtils;
+import com.framework.common.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -28,21 +25,22 @@ public class AuthenticationLogoutSuccessHandler implements LogoutSuccessHandler 
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    TokenUtils tokenUtils;
+
+    @Value("${token.header}")
+    private String _TOKEN_;
+
+    @Value("${token.enable-redis}")
+    private boolean _enable_;
+
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter out = httpServletResponse.getWriter();
-        String token = httpServletRequest.getHeader("X-Token");
-        try {
-            if (TokenUtils.verifyJWT(token)) {
-                String jwt = new String (Base64Util.decryptBASE64(token));
-                redisUtil.del(jwt.split("\\.")[2]);
-            }
-        } catch (Exception e) {
-            logger.error("token verify error", e);
-        }
-
+        String token = httpServletRequest.getHeader(_TOKEN_);
+        String userCode = tokenUtils.getUsercodeFromToken(token);
+        if (_enable_) redisUtil.del(userCode);
         ObjectMapper objectMapper = new ObjectMapper();
         out.write(objectMapper.writeValueAsString(R.ok()));
         out.flush();

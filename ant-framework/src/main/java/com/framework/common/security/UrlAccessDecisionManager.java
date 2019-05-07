@@ -1,28 +1,21 @@
 package com.framework.common.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.common.utils.Base64Util;
 import com.framework.common.utils.FilterUtils;
-import com.framework.common.utils.R;
 import com.framework.common.utils.RedisUtil;
-import com.framework.common.utils.token.TokenUtils;
+import com.framework.common.utils.TokenUtils;
 import com.framework.modules.sys.pojo.User;
 import com.framework.modules.sys.service.IUserService;
-import com.framework.modules.sys.service.impl.UserServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -30,11 +23,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 @Component
 public class UrlAccessDecisionManager implements AccessDecisionManager {
@@ -52,6 +41,9 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
 
     @Autowired
     FilterUtils filterUtils;
+
+    @Autowired
+    TokenUtils tokenUtils;
 
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, AuthenticationException {
@@ -77,43 +69,31 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
 
             String _token = request.getHeader(ADMIN_TOKEN);
 
-
-            boolean flg = false;
-            try {
-
-                flg = TokenUtils.verifyJWT(_token);
-            }catch (Exception e) {
-                logger.error("token verify error",e);
-                throw new AccessDeniedException("JWT认证失败!");
-            }
-
-            // 解析异常
-            if (!flg) {
+            if (StringUtils.isBlank(_token)) {
                 throw new AccessDeniedException("JWT认证失败");
             }
 
-            String jwt = new String (Base64Util.decryptBASE64(_token));
+            String userCode = tokenUtils.getUsercodeFromToken(_token);
 
-            String key = jwt.split("\\.")[2];
-
-            Long userId = (Long) redisUtil.get(key);
-
-            User user = userService.getUser(userId);
-
-            if (user == null) {
-                throw new AccessDeniedException("权限不足");
+            if (StringUtils.isBlank(userCode)) {
+                throw new AccessDeniedException("JWT认证失败");
             }
 
-            // 生成通过认证
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            // 将权限写入本次会话
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+
+
+            User user = userService.getUserByUserCode(userCode);
+
+            if (user == null) {
+
+                throw new AccessDeniedException("JWT认证失败");
+            }
+
+            if (!tokenUtils.validateToken(_token, user)) {
+
+                throw new AccessDeniedException("JWT认证失败");
+            }
 
         }
-
-
-
 
     }
 
