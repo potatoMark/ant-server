@@ -88,6 +88,6 @@ logging:
 # token
 token:
   secret: secret
-  expiration: 60
+  expiration: 604800
   header: X-Token
   enable-redis: false

@@ -34,6 +34,9 @@ public class AuthenticationLoginSuccessHandler implements AuthenticationSuccessH
     @Value("${token.expiration}")
     private Long _TIMEOUT_;
 
+    @Value("${token.enable-redis}")
+    private boolean _enable_;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         httpServletResponse.setContentType("application/json;charset=utf-8");
@@ -42,15 +45,10 @@ public class AuthenticationLoginSuccessHandler implements AuthenticationSuccessH
         User user = UserUtils.getCurrentLoginUser();
 
         String token = "";
-        try {
+        token = tokenUtils.generateToken(user.getUsercode());
 
-          token = tokenUtils.generateToken(user.getUsercode());
+        if (_enable_) redisUtil.set(user.getUsercode(),token, _TIMEOUT_);
 
-          redisUtil.set(user.getUsercode(),token, _TIMEOUT_);
-
-        }catch (Exception e) {
-            logger.error("Token generate error",e);
-        }
         out.write(objectMapper.writeValueAsString(R.ok().put("token",token).put("usercode",user.getUsercode())));
         out.flush();
         out.close();
