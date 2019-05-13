@@ -39,7 +39,6 @@ public class SchemaTableVO implements Serializable {
 
     private String tableSchema;
 
-
     private String className;
 
     private String classname;

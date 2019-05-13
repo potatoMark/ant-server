@@ -95,6 +95,7 @@
         </el-tab-pane>
 #if($history)
         <el-tab-pane :label="${V}t('common.tips.more')" name="more">
+        <el-row>
           <el-form-item prop="createdate" :label="${V}t('${table.moduleName}.${table.classname}.createdate')">
             <el-date-picker
               v-model="form.createdate"
@@ -106,7 +107,8 @@
           <el-form-item prop="createuser" :label="${V}t('${table.moduleName}.${table.classname}.createuser')">
             <el-input v-model="form.createuser" disabled />
           </el-form-item>
-
+        </el-row>
+        <el-row>
           <el-form-item prop="updatedate" :label="${V}t('${table.moduleName}.${table.classname}.updatedate')">
             <el-date-picker
               v-model="form.updatedate"
@@ -118,7 +120,7 @@
           <el-form-item prop="updateuser" :label="${V}t('${table.moduleName}.${table.classname}.updateuser')">
             <el-input v-model="form.updateuser" disabled />
           </el-form-item>
-
+        </el-row>
         </el-tab-pane>
 #end
       </el-tabs>

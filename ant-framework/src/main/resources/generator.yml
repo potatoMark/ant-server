@@ -3,4 +3,6 @@ generate:
   varchar: String
   date: Date
   timestamp: Timestamp
+  tinyint: boolean
+  datetime: Timestamp
   packageName: com.framework.modules
