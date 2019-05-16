@@ -7,10 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+#if($dynamic)
+import com.framework.common.entity.DynamicTabVO;
+#end
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>

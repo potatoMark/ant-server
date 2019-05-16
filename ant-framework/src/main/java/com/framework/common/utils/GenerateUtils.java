@@ -198,7 +198,7 @@ public class GenerateUtils {
 		}
 
 		if (template.contains("VO.java.vm")) {
-			return packagePath + "entity" + File.separator + className + "VO.java";
+			return packagePath + "vo" + File.separator + className + "VO.java";
 		}
 
 		if (template.contains("Dao.java.vm")) {

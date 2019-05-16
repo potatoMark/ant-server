@@ -66,9 +66,9 @@ public class SchemaTableVO implements Serializable {
             if (strs.length == 1) {
                 return strs[0].substring(0,1).toUpperCase().concat(strs[0].substring(1).toLowerCase());
             }
-            if ("v".equals(strs[0])) {
+//            if ("v".equals(strs[0])) {
                 loop = 1;
-            }
+//            }
 
             String content = "";
             for ( ; loop<strs.length; loop++ ) {
@@ -90,9 +90,9 @@ public class SchemaTableVO implements Serializable {
             if (strs.length == 1) {
                 return strs[0];
             }
-            if ("v".equals(strs[0])) {
+//            if ("v".equals(strs[0])) {
                 loop = 1;
-            }
+//            }
 
             String content = "";
             boolean flg = true;

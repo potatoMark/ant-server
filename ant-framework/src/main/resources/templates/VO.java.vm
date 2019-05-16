@@ -5,10 +5,14 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import ${package}.${table.moduleName}.pojo.${table.className};
+#if($dynamic)
+import com.framework.common.entity.DynamicTabVO;
+#end
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -39,17 +43,17 @@ public class ${table.className}VO implements Serializable {
 #end
 
     public ${table.className} getPojo${table.className}(){
-            ${table.className} ${table.classname} = new ${table.className}();
+        ${table.className} ${table.classname} = new ${table.className}();
 
 #foreach($column in $columns)
-            ${table.classname}.set${column.attrName}(this.${column.attrname});
+        ${table.classname}.set${column.attrName}(this.${column.attrname});
 #end
 #if($dynamic)
-            ${table.classname}.setDynamicTabs(this.dynamicTabs);
+        ${table.classname}.setDynamicTabs(this.dynamicTabs);
 #end
-            return ${table.classname};
+        return ${table.classname};
 
-        }
+   }
 
 
 

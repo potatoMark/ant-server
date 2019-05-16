@@ -9,12 +9,18 @@ import ${package}.${table.moduleName}.pojo.${table.className};
 import ${package}.${table.moduleName}.vo.${table.className}VO;
 import ${package}.${table.moduleName}.service.I${table.className}Service;
 import ${package}.${table.moduleName}.dao.${table.className}Dao;
+#if($dynamic)
+import com.framework.common.entity.DynamicTabVO;
+import com.framework.modules.tool.dao.ToolDynamicTabDao;
+import com.framework.modules.tool.pojo.ToolDynamicTab;
+#end
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -86,22 +92,24 @@ public class ${table.className}ServiceImpl extends com.baomidou.mybatisplus.exte
     public void save${table.className}(${table.className} ${table.classname})throws Exception {
         PojoUtils.changeDate(${table.classname});
 
-        #if($pk.attrName == 'Id')
-            if (${table.classname}.getId() != null) {
-                ${table.classname}Dao.updateById(${table.classname});
-            } else {
-                ${table.classname}Dao.insert(${table.classname});
-            }
-        #else
-            ${table.classname}Dao.insert(${table.classname});
-        #end
+#if($pk.attrName == 'Id')
+        if (${table.classname}.getId() != null) {
+           ${table.classname}Dao.updateById(${table.classname});
+        } else {
+           ${table.classname}Dao.insert(${table.classname});
+        }
+#else
+        ${table.classname}Dao.insert(${table.classname});
+#end
 #if($dynamic)
         //生成动态SQL
-        for (DynamicTabVO dynamicTab : devCar.getDynamicTabs()) {
+        if (${table.classname}.getDynamicTabs() != null) {
+            for (DynamicTabVO dynamicTab : ${table.classname}.getDynamicTabs()) {
 
-            String sql = PojoUtils.generateDynamicSql(dynamicTab,"$fk", ${table.classname}.get${pk.attrName}());
-            if (StringUtils.isNotBlank(sql)) {
-                toolDynamicTabDao.dmlDynamicTable(sql);
+                String sql = PojoUtils.generateDynamicSql(dynamicTab,"$fk", ${table.classname}.get${pk.attrName}());
+                if (StringUtils.isNotBlank(sql)) {
+                    toolDynamicTabDao.dmlDynamicTable(sql);
+                }
             }
         }
 #end
@@ -113,8 +121,6 @@ public class ${table.className}ServiceImpl extends com.baomidou.mybatisplus.exte
     public ${table.className} get${table.className}(${pk.dataType} ${pk.attrname})throws Exception {
         ${table.className} ${table.classname} = new ${table.className}();
 
-        devCar = devCarDao.selectById(id);
-
 #if($pk.attrName == 'Id')
         if (id != null && id != 0L) ${table.classname} = ${table.classname}Dao.selectById(${pk.attrname});
 #else
@@ -122,7 +128,7 @@ public class ${table.className}ServiceImpl extends com.baomidou.mybatisplus.exte
 #end
 #if($dynamic)
         //查看是否存在自定义tab
-        List<ToolDynamicTab> list = toolDynamicTabDao.queryListByTableName($table.tableName);
+        List<ToolDynamicTab> list = toolDynamicTabDao.queryListByTableName("$table.tableName");
         if ($pk.attrname != 0L) {
             list.forEach(item->{
                 Map<String,Object> map = toolDynamicTabDao.queryDynamicByFK(item.getTabTableNumber(),"$fk",id);
@@ -130,6 +136,7 @@ public class ${table.className}ServiceImpl extends com.baomidou.mybatisplus.exte
             });
         }
         List<DynamicTabVO> dynamicTabVOS = PojoUtils.dynamicPojoToVo(list);
+        ${table.classname}.setDynamicTabs(dynamicTabVOS);
 #end
 
         return ${table.classname};

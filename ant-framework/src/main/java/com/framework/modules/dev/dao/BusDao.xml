@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.framework.modules.dev.dao.BusDao">
+
+    <resultMap id="BaseResultMap" type="com.framework.modules.dev.pojo.Bus">
+        <id column="id" property="id"/>
+        <result column="number" property="number"/>
+        <result column="name" property="name"/>
+        <result column="testTime" property="testtime"/>
+        <result column="createuser" property="createuser"/>
+        <result column="updateuser" property="updateuser"/>
+        <result column="createdate" property="createdate"/>
+        <result column="updatedate" property="updatedate"/>
+    </resultMap>
+</mapper>

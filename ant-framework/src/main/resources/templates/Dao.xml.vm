@@ -3,12 +3,12 @@
 <mapper namespace="${package}.${table.moduleName}.dao.${table.className}Dao">
 
     <resultMap id="BaseResultMap" type="${package}.${table.moduleName}.pojo.${table.className}">
-        #foreach($column in $columns)
-        #if($column.columnName == $pk.columnName)
+#foreach($column in $columns)
+#if($column.columnName == $pk.columnName)
         <id column="$pk.columnName" property="$pk.attrname"/>
-        #else
+#else
         <result column="$column.columnName" property="$column.attrname"/>
-        #end
-        #end
+#end
+#end
     </resultMap>
 </mapper>
