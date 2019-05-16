@@ -31,90 +31,123 @@ public class ${table.className}ServiceImpl extends com.baomidou.mybatisplus.exte
     @Autowired
     ${table.className}Dao ${table.classname}Dao;
 
+    @Autowired
+    ToolDynamicTabDao toolDynamicTabDao;
+
     @Override
-    public List<${table.className}> get${table.className}s() {
+    public List<${table.className}> get${table.className}s()throws Exception {
         return ${table.classname}Dao.selectList(null);
     }
 
     @Override
-    public PageUtils queryPage(RequestUtils params) {
+    public PageUtils queryPage(RequestUtils params)throws Exception {
         ${table.className}VO ${table.classname}VO = (${table.className}VO)params.getCondition();
         Page<${table.className}> page = (Page<${table.className}>)${table.classname}Dao.selectPage(PageUtils.instance(params.getPage()),new QueryWrapper<${table.className}>()
-            #foreach($column in $columns)
-                #if($column.attrname != $pk.attrname)
-                #if($column.dataType == 'String')
+#foreach($column in $columns)
+#if($column.attrname != $pk.attrname)
+#if($column.dataType == 'String')
                 .like(StringUtils.isNotBlank(${table.classname}VO.get${column.attrName}()),"${column.columnName}",${table.classname}VO.get${column.attrName}())
-                #else
+#else
                 .like(${table.classname}VO.get${column.attrName}() != null,"${column.columnName}",${table.classname}VO.get${column.attrName}())
-                #end
-                #end
-            #end
+#end
+#end
+#end
         );
         return new PageUtils(page);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int delete${table.className}s(List<${pk.dataType}> ${table.classname}${pk.attrName}s) {
-
-
-        #if($pk.attrName == 'Id')
-            return ${table.classname}Dao.deleteBatchIds(${table.classname}${pk.attrName}s);
-        #else
-            ${table.classname}${pk.attrName}s.forEach(item->{
+    public void delete${table.className}s(List<${pk.dataType}> ${table.classname}${pk.attrName}s)throws Exception {
+#if($pk.attrName == 'Id')
+        ${table.classname}Dao.deleteBatchIds(${table.classname}${pk.attrName}s);
+#else
+        ${table.classname}${pk.attrName}s.forEach(item->{
                 ${table.classname}Dao.delete(new QueryWrapper<${table.className}>().eq("${pk.columnName}",item));
-            });
-            return 0;
-        #end
+        });
+#end
 
-
+#if($dynamic)
+        //查看是否存在自定义tab
+        List<ToolDynamicTab> list = toolDynamicTabDao.queryListByTableName("$table.tableName");
+        if(list != null){
+            for (Long ${table.classname}Id : ${table.classname}Ids) {
+                for (ToolDynamicTab toolDynamicTab : list) {
+                    String sql = PojoUtils.generateDeleteSql(toolDynamicTab,"$fk", ${table.classname}Id);
+                    toolDynamicTabDao.dmlDynamicTable(sql);
+                }
+            }
+        }
+#end
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int save${table.className}(${table.className} ${table.classname}) {
+    public void save${table.className}(${table.className} ${table.classname})throws Exception {
         PojoUtils.changeDate(${table.classname});
+
         #if($pk.attrName == 'Id')
             if (${table.classname}.getId() != null) {
-                int rst = ${table.classname}Dao.updateById(${table.classname});
-                return rst;
+                ${table.classname}Dao.updateById(${table.classname});
             } else {
-                int rst = ${table.classname}Dao.insert(${table.classname});
-                return rst;
+                ${table.classname}Dao.insert(${table.classname});
             }
         #else
-            int rst = ${table.classname}Dao.insert(${table.classname});
-            return rst;
+            ${table.classname}Dao.insert(${table.classname});
         #end
+#if($dynamic)
+        //生成动态SQL
+        for (DynamicTabVO dynamicTab : devCar.getDynamicTabs()) {
+
+            String sql = PojoUtils.generateDynamicSql(dynamicTab,"$fk", ${table.classname}.get${pk.attrName}());
+            if (StringUtils.isNotBlank(sql)) {
+                toolDynamicTabDao.dmlDynamicTable(sql);
+            }
+        }
+#end
 
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ${table.className} get${table.className}(${pk.dataType} ${pk.attrname}) {
+    public ${table.className} get${table.className}(${pk.dataType} ${pk.attrname})throws Exception {
+        ${table.className} ${table.classname} = new ${table.className}();
 
-        #if($pk.attrName == 'Id')
-            return ${table.classname}Dao.selectById(${pk.attrname});
-        #else
-            return ${table.classname}Dao.selectOne(new QueryWrapper<${table.className}>().eq("${pk.columnName}",${pk.attrname}));
-        #end
+        devCar = devCarDao.selectById(id);
 
+#if($pk.attrName == 'Id')
+        if (id != null && id != 0L) ${table.classname} = ${table.classname}Dao.selectById(${pk.attrname});
+#else
+        ${table.classname} = ${table.classname}Dao.selectOne(new QueryWrapper<${table.className}>().eq("${pk.columnName}",${pk.attrname}));
+#end
+#if($dynamic)
+        //查看是否存在自定义tab
+        List<ToolDynamicTab> list = toolDynamicTabDao.queryListByTableName($table.tableName);
+        if ($pk.attrname != 0L) {
+            list.forEach(item->{
+                Map<String,Object> map = toolDynamicTabDao.queryDynamicByFK(item.getTabTableNumber(),"$fk",id);
+                PojoUtils.dynamicSetValue(item,map);
+            });
+        }
+        List<DynamicTabVO> dynamicTabVOS = PojoUtils.dynamicPojoToVo(list);
+#end
 
+        return ${table.classname};
     }
 
     @Override
-    public List<${table.className}> get${table.className}sByCondition(${table.className}VO ${table.classname}VO) {
+    public List<${table.className}> get${table.className}sByCondition(${table.className}VO ${table.classname}VO)throws Exception {
 
         return ${table.classname}Dao.selectList(new QueryWrapper<${table.className}>()
-        #foreach($column in $columns)
-            #if($column.attrname != $pk.attrname)
-            #if($column.dataType == 'String')
+#foreach($column in $columns)
+#if($column.attrname != $pk.attrname)
+#if($column.dataType == 'String')
             .like(StringUtils.isNotBlank(${table.classname}VO.get${column.attrName}()),"${column.columnName}",${table.classname}VO.get${column.attrName}())
-            #else
+#else
             .like(${table.classname}VO.get${column.attrName}() != null,"${column.columnName}",${table.classname}VO.get${column.attrName}())
-            #end
-            #end
-        #end
+#end
+#end
+#end
         );
     }
 }

@@ -29,17 +29,22 @@ public class ${table.className} implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    #foreach($column in $columns)
+#foreach($column in $columns)
     /**
      * $column.columnComment
      */
-    #if($column.columnName == $pk.columnName)
+#if($column.columnName == $pk.columnName)
     @TableId(value = "$pk.columnName", type = IdType.AUTO)
-    #else
+#else
     @TableField(value="$column.columnName")
-    #end
+#end
     private $column.dataType $column.attrname;
-    #end
+#end
+
+#if($dynamic)
+    @TableField(exist = false)
+    private List<DynamicTabVO> dynamicTabs;
+#end
 
 
 

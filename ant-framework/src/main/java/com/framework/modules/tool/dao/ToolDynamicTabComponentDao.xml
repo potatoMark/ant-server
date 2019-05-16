@@ -3,12 +3,15 @@
 <mapper namespace="com.framework.modules.tool.dao.ToolDynamicTabComponentDao">
 
     <resultMap id="BaseResultMap" type="com.framework.modules.tool.pojo.ToolDynamicTabComponent">
-                        <id column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                    </resultMap>
+        <id column="id" property="id"/>
+        <result column="dynamic_tab_id" property="dynamicTabId"/>
+        <result column="content_number" property="contentNumber"/>
+        <result column="content_name" property="contentName"/>
+        <result column="content_required" property="contentRequired"/>
+        <result column="content_type" property="contentType"/>
+        <result column="content_item" property="contentItem"/>
+    </resultMap>
+    <select id="queryByDynamicTabId" resultMap="BaseResultMap">
+        SELECT * FROM tool_dynamic_tab_component where dynamic_tab_id = #{id}
+    </select>
 </mapper>

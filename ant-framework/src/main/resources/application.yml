@@ -6,8 +6,11 @@ server:
     session:
       timeout: -1
 
-
 spring:
+  jackson:
+    default-property-inclusion: ALWAYS
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
   datasource:       #数据源配置
     type: com.alibaba.druid.pool.DruidDataSource
 #    driverClassName: com.mysql.jdbc.Driver

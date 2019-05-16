@@ -19,15 +19,15 @@ import java.util.List;
  */
 public interface I${table.className}Service extends IService<${table.className}> {
 
-    public List<${table.className}> get${table.className}s();
+    public List<${table.className}> get${table.className}s() throws Exception;
 
-    PageUtils queryPage(RequestUtils params);
+    PageUtils queryPage(RequestUtils params) throws Exception;
 
-    public int delete${table.className}s(List<${pk.dataType}> ${table.classname}${pk.attrName}s);
+    public void delete${table.className}s(List<${pk.dataType}> ${table.classname}${pk.attrName}s) throws Exception;
 
-    public int save${table.className}(${table.className} ${table.classname});
+    public void save${table.className}(${table.className} ${table.classname}) throws Exception;
 
-    public ${table.className} get${table.className}(${pk.dataType} ${pk.attrname});
+    public ${table.className} get${table.className}(${pk.dataType} ${pk.attrname}) throws Exception;
 
-    public List<${table.className}> get${table.className}sByCondition(${table.className}VO ${table.classname}VO);
+    public List<${table.className}> get${table.className}sByCondition(${table.className}VO ${table.classname}VO) throws Exception;
 }

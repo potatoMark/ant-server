@@ -64,7 +64,8 @@ public class ToolDynamicTabComponent implements Serializable {
      */
         @TableField(value="content_item")
         private String contentItem;
-    
 
+    @TableField(exist = false)
+    private Object contentValue;
 
 }

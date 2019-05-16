@@ -19,15 +19,15 @@ import java.util.List;
  */
 public interface IDevCarService extends IService<DevCar> {
 
-    public List<DevCar> getDevCars();
+    public List<DevCar> getDevCars() throws Exception;
 
-    PageUtils queryPage(RequestUtils params);
+    PageUtils queryPage(RequestUtils params) throws Exception;
 
-    public int deleteDevCars(List<Long> devCarIds);
+    public void deleteDevCars(List<Long> devCarIds) throws Exception;
 
-    public int saveDevCar(DevCar devCar);
+    public void saveDevCar(DevCar devCar) throws Exception;
 
-    public DevCar getDevCar(Long id);
+    public DevCar getDevCar(Long id) throws Exception;
 
-    public List<DevCar> getDevCarsByCondition(DevCarVO devCarVO);
+    public List<DevCar> getDevCarsByCondition(DevCarVO devCarVO) throws Exception;;
 }

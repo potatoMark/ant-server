@@ -84,8 +84,8 @@ public class SchemaTableServiceImpl extends com.baomidou.mybatisplus.extension.s
     public List<SchemaTable> getSchemaTablesByCondition(SchemaTableVO schemaTableVO) {
 
         return schemaTableDao.selectList(new QueryWrapper<SchemaTable>()
-                                                                .like(StringUtils.isNotBlank(schemaTableVO.getTableName()),"table_name",schemaTableVO.getTableName())
-                                        );
+                .like(StringUtils.isNotBlank(schemaTableVO.getTableName()),"table_name",schemaTableVO.getTableName())
+        );
     }
 
     @Override

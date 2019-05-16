@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.framework.modules.sys.pojo.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -11,6 +12,8 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -74,7 +77,16 @@ public class ToolDynamicTab implements Serializable {
      */
         @TableField(value="updatedate")
         private Timestamp updatedate;
-    
 
 
+    /**
+     * 关联TAB对应的Content
+     */
+
+    @TableField(exist = false)
+    private List<ToolDynamicTabComponent> toolDynamicTabComponents;
+
+
+    @TableField(exist = false)
+    private Long tabId;
 }

@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.framework.common.entity.DynamicTabVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -11,6 +14,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -74,7 +78,8 @@ public class DevCar implements Serializable {
      */
         @TableField(value="updatedate")
         private Timestamp updatedate;
-    
 
+        @TableField(exist = false)
+        private List<DynamicTabVO> dynamicTabs;
 
 }

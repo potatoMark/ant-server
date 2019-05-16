@@ -33,7 +33,7 @@ public class DevCarController {
     IDevCarService devCarService;
 
     @GetMapping("/devCars")
-    public R getDevCars(){
+    public R getDevCars() throws Exception{
 
         return R.ok().putResult(devCarService.getDevCars());
     }
@@ -41,7 +41,7 @@ public class DevCarController {
     @ApiOperation("按照分页的方式查询汽车信息")
     @ApiImplicitParam(name = "params", value = "查询条件", dataType = "RequestUtils<DevCarVO>")
     @PostMapping("/devCars/page")
-    public R getDevCarList(@RequestBody RequestUtils<DevCarVO> params){
+    public R getDevCarList(@RequestBody RequestUtils<DevCarVO> params) throws Exception{
         PageUtils page = devCarService.queryPage(params);
         return R.ok().putResult(page);
     }
@@ -49,24 +49,24 @@ public class DevCarController {
     @ApiOperation("批量删除汽车")
     @ApiImplicitParam(name = "devCarIds", value = "多个Id信息", dataType = "List<Long>")
     @DeleteMapping("/devCars/delete")
-    public R deleteDevCar(@RequestParam List<Long> devCarIds){
-        int rst = devCarService.deleteDevCars(devCarIds);
-        return R.ok().putResult(rst);
+    public R deleteDevCar(@RequestParam List<Long> devCarIds) throws Exception{
+        devCarService.deleteDevCars(devCarIds);
+        return R.ok();
     }
 
     @ApiOperation("更新/新增汽车")
     @ApiImplicitParam(name = "devCarVO", value = "汽车传输VO", dataType = "DevCarVO")
     @PostMapping("/devCars/save")
-    public R saveDevCar(@RequestBody DevCarVO devCarVO){
+    public R saveDevCar(@RequestBody DevCarVO devCarVO) throws Exception{
         DevCar devCar = devCarVO.getPojoDevCar();
-        int rst = devCarService.saveDevCar(devCar);
+        devCarService.saveDevCar(devCar);
         return R.ok();
     }
 
     @ApiOperation("根据id查询汽车")
     @ApiImplicitParam(name = "id", value = "ID", dataType = "Long")
     @GetMapping("/devCars/{id}")
-    public R getDevCar(@PathVariable(name="id", required = true) Long id){
+    public R getDevCar(@PathVariable(name="id") Long id) throws Exception{
 
         DevCar devCar = devCarService.getDevCar(id);
 

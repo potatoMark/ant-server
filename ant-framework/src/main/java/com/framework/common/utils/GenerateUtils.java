@@ -117,6 +117,28 @@ public class GenerateUtils {
 		if (pk == null) {
 			pk = schemaTableColumnVOList.get(0);
 		}
+		//获取当前表的外键名称
+		String fkName="";
+		String[] strs = schemaTableVO.getTableName().split("_");
+		if (strs.length == 1) {
+			fkName = strs[0];
+		} else {
+			int loop = 1;
+			boolean flg = true;
+			for ( ; loop<strs.length; loop++ ) {
+
+				if (flg){
+
+					fkName = strs[loop].toLowerCase();
+					flg=false;
+				} else {
+
+					fkName = fkName.concat(strs[loop].substring(0,1).toUpperCase().concat(strs[loop].substring(1).toLowerCase()));
+				}
+			}
+
+		}
+		fkName = fkName.concat("_id");
 
 
 		// 封装模板数据
@@ -130,6 +152,8 @@ public class GenerateUtils {
 		map.put("searchColumns", searchList);
 		map.put("editShowColumns", showEditShowList);
 		map.put("history", isHistory);
+		map.put("dynamic", schemaTableVO.isDynamicTab());
+		map.put("fk",fkName);
 		VelocityContext context = new VelocityContext(map);
 
 		// 获取模板列表
@@ -174,7 +198,7 @@ public class GenerateUtils {
 		}
 
 		if (template.contains("VO.java.vm")) {
-			return packagePath + "vo" + File.separator + className + "VO.java";
+			return packagePath + "entity" + File.separator + className + "VO.java";
 		}
 
 		if (template.contains("Dao.java.vm")) {

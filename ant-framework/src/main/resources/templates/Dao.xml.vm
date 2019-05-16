@@ -7,7 +7,7 @@
         #if($column.columnName == $pk.columnName)
         <id column="$pk.columnName" property="$pk.attrname"/>
         #else
-        <result column="$pk.columnName" property="$pk.attrname"/>
+        <result column="$column.columnName" property="$column.attrname"/>
         #end
         #end
     </resultMap>

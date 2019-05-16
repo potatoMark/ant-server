@@ -1,5 +1,7 @@
 package com.framework.modules.dev.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.framework.common.entity.DynamicTabVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -9,6 +11,7 @@ import com.framework.modules.dev.pojo.DevCar;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -71,22 +74,25 @@ public class DevCarVO implements Serializable {
      */
     private Timestamp updatedate;
 
+    private List<DynamicTabVO> dynamicTabs;
+
     
     public DevCar getPojoDevCar(){
-            DevCar devCar = new DevCar();
+        DevCar devCar = new DevCar();
 
-                        devCar.setId(this.id);
-                        devCar.setNumber(this.number);
-                        devCar.setName(this.name);
-                        devCar.setStatus(this.status);
-                        devCar.setRepairtime(this.repairtime);
-                        devCar.setCreateuser(this.createuser);
-                        devCar.setUpdateuser(this.updateuser);
-                        devCar.setCreatedate(this.createdate);
-                        devCar.setUpdatedate(this.updatedate);
-                        return devCar;
+        devCar.setId(this.id);
+        devCar.setNumber(this.number);
+        devCar.setName(this.name);
+        devCar.setStatus(this.status);
+        devCar.setRepairtime(this.repairtime);
+        devCar.setCreateuser(this.createuser);
+        devCar.setUpdateuser(this.updateuser);
+        devCar.setCreatedate(this.createdate);
+        devCar.setUpdatedate(this.updatedate);
+        devCar.setDynamicTabs(this.dynamicTabs);
+        return devCar;
 
-        }
+    }
 
 
 

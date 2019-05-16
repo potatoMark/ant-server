@@ -2,7 +2,7 @@
 <template>
   <div class="app-container">
     <el-alert :closable="false" :title="${V}t('${table.moduleName}.${table.classname}.title')" type="success" />
-    <AntSimpleTable
+    <ant-simple-table
       ref="${table.classname}Table"
       :tableprops="tableprops"
       :columns="columns"
@@ -32,7 +32,7 @@ import AntSimpleTable from '@/components/tables/AntSimpleTable'
 import { get${table.className}Page, delete${table.className}s, get${table.className}sByCondition } from '@/api/modules/${table.moduleName}/${table.classname}'
 import ${table.className}Search from './${table.classname}-search'
 import ${table.className}Edit from './${table.classname}-edit'
-import { renderYmd, renderYmdhms, data2ExcelFormatJson } from '@/utils/index'
+import { data2ExcelFormatJson } from '@/utils/index'
 export default {
   components: { AntSimpleTable, ${table.className}Search, ${table.className}Edit },
   data() {
@@ -41,7 +41,7 @@ export default {
       selectArray: [],
       columns: [
 #foreach($element in $columns)
-        { prop: '$element.attrname', label: this.${V}t('${table.moduleName}.${table.classname}.${element.attrname}'), align: 'center'#if($element.dataType == "Date"), renderColumn: renderYmd #elseif($element.dataType == "Timestamp"), renderColumn: renderYmdhms #end #if($element.showListModel == "hidden"), hidden: true#end }#if($velocityCount != $columns.size()),#end
+        { prop: '$element.attrname', label: this.${V}t('${table.moduleName}.${table.classname}.${element.attrname}'), align: 'center'#if($element.showListModel == "hidden"), hidden: true#end }#if($velocityCount != $columns.size()),#end
 
 #end
       ],

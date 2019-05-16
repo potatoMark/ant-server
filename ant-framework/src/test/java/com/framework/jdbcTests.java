@@ -2,11 +2,14 @@ package com.framework;
 
 import com.framework.modules.dev.dao.DevCarDao;
 import com.framework.modules.dev.pojo.DevCar;
+import com.framework.modules.dev.service.IDevCarService;
 import com.framework.modules.sys.dao.MenuDao;
 import com.framework.modules.sys.dao.RoleDao;
 import com.framework.modules.sys.dao.UserDao;
 import com.framework.modules.sys.dao.UserMapper;
 import com.framework.modules.sys.service.IUserService;
+import com.framework.modules.tool.dao.ToolDynamicTabDao;
+import com.framework.modules.tool.pojo.ToolDynamicTab;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -45,11 +49,20 @@ public class jdbcTests {
     private UserMapper userMapper;
 
     @Autowired
-    DevCarDao devCarDao;
+    ToolDynamicTabDao toolDynamicTabDao;
+
+    @Autowired
+    IDevCarService devCarService;
 
     @Test
     public void testSelect() {
 
+//        DevCar devCar = devCarService.getDevCar(null);
+//
+//        logger.info(devCar.toString());
+//        List<ToolDynamicTab> list = toolDynamicTabDao.queryListByTableName("dev_car");
+//        Map<String,Object> map = toolDynamicTabDao.queryDynamicByFK("dynamic_car_component","car_id",5L);
+//        logger.info(list.size()+"");
 //        List<UserVO> userList = userDao.selectList(null);
 //        userList.forEach(
 //            (sysUser)->{

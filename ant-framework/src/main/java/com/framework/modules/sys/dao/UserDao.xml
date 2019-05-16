@@ -32,7 +32,7 @@
         select * from sys_user ;
     </select>
 
-<!--    <select id="loadUserPage" resultMap="BaseResultMap" parameterType="com.framework.modules.sys.vo.UserVO">-->
+<!--    <select id="loadUserPage" resultMap="BaseResultMap" parameterType="com.framework.modules.sys.entity.UserVO">-->
 
 <!--        select * from sys_user where 1 = 1-->
 <!--        <if test="userVO.username != null and userVO.username != ''">-->

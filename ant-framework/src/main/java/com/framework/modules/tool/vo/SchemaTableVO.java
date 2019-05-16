@@ -53,6 +53,8 @@ public class SchemaTableVO implements Serializable {
 
     private String createDate;
 
+    private boolean dynamicTab;
+
     private List<SchemaTableColumnVO> schemaTableColumnVOList;
 
     public String getClassName(){

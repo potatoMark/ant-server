@@ -4,7 +4,8 @@
   <el-dialog
     v-el-drag-dialog
     :visible.sync="dialogVisible"
-    width="65%"
+    :before-close="handleClose"
+    width="75%"
   >
     <span slot="title">
       <i class="el-icon-edit" />
@@ -41,9 +42,9 @@
               <el-col :span="10">
                 <el-form-item prop="${element.attrname}" :label="${V}t('${table.moduleName}.${table.classname}.${element.attrname}')">
 #if($element.editComponent == "date")
-                  <el-date-picker v-model="form.${element.attrname}" type="date" :placeholder="${V}t('common.msg.placeholderSelect')" />
+                  <el-date-picker v-model="form.${element.attrname}" type="date" value-format="yyyy-MM-dd HH:mm:ss" :placeholder="${V}t('common.msg.placeholderSelect')" />
 #elseif($element.editComponent == "datetime")
-                  <el-date-picker v-model="form.${element.attrname}" type="datetime" :placeholder="${V}t('common.msg.placeholderSelect')" />
+                  <el-date-picker v-model="form.${element.attrname}" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" :placeholder="${V}t('common.msg.placeholderSelect')" />
 #elseif($element.editComponent == "select")
                   <el-select v-model="form.${element.attrname}" :placeholder="${V}t('common.msg.placeholderSelect')" >
                     <el-option
@@ -69,9 +70,9 @@
               <el-col :span="12">
                 <el-form-item prop="${element.attrname}" :label="${V}t('${table.moduleName}.${table.classname}.${element.attrname}')">
 #if($element.editComponent == "date")
-                <el-date-picker v-model="form.${element.attrname}" type="date" :placeholder="${V}t('common.msg.placeholderSelect')" />
+                <el-date-picker v-model="form.${element.attrname}" type="date" value-format="yyyy-MM-dd HH:mm:ss" :placeholder="${V}t('common.msg.placeholderSelect')" />
 #elseif($element.editComponent == "datetime")
-                <el-date-picker v-model="form.${element.attrname}" type="datetime" :placeholder="${V}t('common.msg.placeholderSelect')" />
+                <el-date-picker v-model="form.${element.attrname}" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" :placeholder="${V}t('common.msg.placeholderSelect')" />
 #elseif($element.editComponent == "select")
                 <el-select v-model="form.${element.attrname}" :placeholder="${V}t('common.msg.placeholderSelect')" >
                   <el-option
@@ -93,6 +94,13 @@
 #end
 #end
         </el-tab-pane>
+#if($dynamic)
+        <template v-for="(item,index) in form.dynamicTabs">
+          <el-tab-pane :key="index" :label="item.label" :name="item.name">
+            <dynamic-tab :prop="item.contents" />
+          </el-tab-pane>
+        </template>
+#end
 #if($history)
         <el-tab-pane :label="${V}t('common.tips.more')" name="more">
         <el-row>
@@ -100,6 +108,7 @@
             <el-date-picker
               v-model="form.createdate"
               disabled
+              value-format="yyyy-MM-dd HH:mm:ss"
               type="datetime"
               :placeholder="${V}t('common.msg.placeholderSelect')"
             />
@@ -113,6 +122,7 @@
             <el-date-picker
               v-model="form.updatedate"
               disabled
+              value-format="yyyy-MM-dd HH:mm:ss"
               type="datetime"
               :placeholder="${V}t('common.msg.placeholderSelect')"
             />
@@ -135,10 +145,16 @@
 </template>
 <script>
 import { save${table.className}, get${table.className}By${pk.attrName} } from '@/api/modules/${table.moduleName}/${table.classname}'
-
+#if($dynamic)
+import DynamicTab from '@/components/DynamicTab'
+import { validatorDynamicTab } from '@/utils/index'
+#end
 export default {
 
   name: '${table.className}Edit',
+#if($dynamic)
+  components: { DynamicTab }, // @dynamic
+#end
   data() {
     return {
       dialogVisible: false,
@@ -148,11 +164,17 @@ export default {
         ${element.attrname}: null#if($velocityCount != $editColumns.size()),#end
 
 #end
+#if($dynamic)
+        ,dynamicTabs: []
+#end
       },
       formShadow: {
 #foreach($element in $editColumns)
         ${element.attrname}: null#if($velocityCount != $editColumns.size()),#end
 
+#end
+#if($dynamic)
+        ,dynamicTabs: []
 #end
       },
 #foreach($element in $editColumns)
@@ -191,10 +213,35 @@ export default {
           this.${V}refs.${table.className}EditForm.resetFields()
         }
       })
-    },
-    handleShow(key) {
-      this.activeName = 'basic'
+#if($dynamic)
+      this.form.dynamicTabs.forEach(tab => {
+        tab.contents.forEach(content => {
+          content.contentValue = null
+        })
+      })
+#end
 
+    },
+    async handleShow(key) {
+      this.activeName = 'basic'
+#if($dynamic)
+      // 获取自定义TAB
+      await get${table.className}By${pk.attrName}(key || 0).then(res => {
+        const data = res.data.result
+        this.formShadow = data
+      })
+
+      if (key) {
+        this.$nextTick(() => {
+          if (this.$refs.${table.className}EditForm) {
+            this.$refs.${table.className}EditForm.clearValidate()
+          }
+        })
+      } else {
+        this.handleReset()
+      }
+      this.dialogVisible = true
+#else
       if (key) {
           get${table.className}By${pk.attrName}(key).then(res => {
             const data = res.data.result
@@ -210,6 +257,13 @@ export default {
 
         this.handleReset()
       }
+#end
+    },
+    handleClose(done) {
+#if($dynamic)
+      this.form.dynamicTabs = []
+#end
+      done()
     },
     handleConfirm() {
       // 校验
@@ -218,6 +272,11 @@ export default {
           this.${V}message.error(this.${V}t('common.validator.validatorfailure'))
           return
         }
+#if($dynamic)
+        if (!validatorDynamicTab(this.form.dynamicTabs, this)) {
+          return false
+        }
+#end
         // 写入数据库
         save${table.className}(this.form).then(res => {
           const code = res.data.code

@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.framework.modules.tool.dao.ToolDynamicTabDao">
-
     <resultMap id="BaseResultMap" type="com.framework.modules.tool.pojo.ToolDynamicTab">
-                        <id column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                                <result column="id" property="id"/>
-                    </resultMap>
+        <id column="id" property="id"/>
+        <result column="table_name" property="tableName"/>
+        <result column="tab_table_number" property="tabTableNumber"/>
+        <result column="tab_table_name" property="tabTableName"/>
+        <result column="active" property="active"/>
+        <result column="createuser" property="createuser"/>
+        <result column="updateuser" property="updateuser"/>
+        <result column="createdate" property="createdate"/>
+        <result column="updatedate" property="updatedate"/>
+        <collection property="toolDynamicTabComponents" ofType="com.framework.modules.tool.pojo.ToolDynamicTabComponent" column="id"
+                    select="com.framework.modules.tool.dao.ToolDynamicTabComponentDao.queryByDynamicTabId" >
+        </collection>
+    </resultMap>
+    <select id="queryListByTableName" resultMap="BaseResultMap">
+        SELECT * FROM tool_dynamic_tab where table_name = #{tableName} and active = 1;
+    </select>
+
+    <select id="queryDynamicByFK" resultType="map">
+        SELECT * FROM ${tableName} where ${fkName} = #{id};
+    </select>
+
+    <insert id="dmlDynamicTable">
+        ${dynamicSql}
+    </insert>
 </mapper>

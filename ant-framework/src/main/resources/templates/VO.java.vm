@@ -26,20 +26,27 @@ public class ${table.className}VO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    #foreach($column in $columns)
+#foreach($column in $columns)
     /**
      * $column.columnComment
      */
     private $column.dataType $column.attrname;
 
-    #end
+#end
+
+#if($dynamic)
+    private List<DynamicTabVO> dynamicTabs;
+#end
 
     public ${table.className} getPojo${table.className}(){
             ${table.className} ${table.classname} = new ${table.className}();
 
-            #foreach($column in $columns)
+#foreach($column in $columns)
             ${table.classname}.set${column.attrName}(this.${column.attrname});
-            #end
+#end
+#if($dynamic)
+            ${table.classname}.setDynamicTabs(this.dynamicTabs);
+#end
             return ${table.classname};
 
         }
