@@ -2,7 +2,6 @@ package com.framework.modules.dev.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.framework.common.entity.DynamicTabVO;
 import com.framework.common.utils.PageUtils;
 import com.framework.common.utils.PojoUtils;
 import com.framework.common.utils.RequestUtils;
@@ -10,6 +9,7 @@ import com.framework.modules.dev.pojo.Bus;
 import com.framework.modules.dev.vo.BusVO;
 import com.framework.modules.dev.service.IBusService;
 import com.framework.modules.dev.dao.BusDao;
+import com.framework.common.entity.DynamicTabVO;
 import com.framework.modules.tool.dao.ToolDynamicTabDao;
 import com.framework.modules.tool.pojo.ToolDynamicTab;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +27,7 @@ import java.util.Map;
  *
  * @author mark
  * @email mark.make@hotmail.com
- * @since 2019-05-16T15:40:35.080Z
+ * @since 2019-05-17T02:00:23.993Z
  */
 @Service
 public class BusServiceImpl extends com.baomidou.mybatisplus.extension.service.impl.ServiceImpl<BusDao, Bus> implements IBusService {
@@ -113,8 +113,8 @@ public class BusServiceImpl extends com.baomidou.mybatisplus.extension.service.i
             });
         }
         List<DynamicTabVO> dynamicTabVOS = PojoUtils.dynamicPojoToVo(list);
-
         bus.setDynamicTabs(dynamicTabVOS);
+
         return bus;
     }
 

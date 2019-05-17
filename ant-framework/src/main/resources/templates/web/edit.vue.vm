@@ -181,7 +181,7 @@ export default {
 #if($element.editComponent == "select")
       ${element.attrname}Options:[
 #foreach($child in $element.options)
-         {label:'$child', value:'$child'}#if($velocityCount != $element.options.size()),#end
+         {label:'$child.split(":")[1]', value:'$child.split(":")[0]'}#if($velocityCount != $element.options.size()),#end
 
 #end
       ],

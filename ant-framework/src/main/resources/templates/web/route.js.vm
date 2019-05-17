@@ -7,7 +7,7 @@ const ${table.moduleName}Router = {
   name: '${moduleName}',
   meta: {
     title: '${moduleName}',
-    icon: 'setting'
+    icon: 'component'
 
   },
   children: [

@@ -120,17 +120,39 @@ public class SchemaTableColumnVO implements Serializable {
     }
 
     public void setPojoToVo(SchemaTableColumn schemaTableColumn){
+        if ("id".equals(schemaTableColumn.getColumnName())
+            ||"createuser".equals(schemaTableColumn.getColumnName())
+            ||"updateuser".equals(schemaTableColumn.getColumnName())
+            ||"createdate".equals(schemaTableColumn.getColumnName())
+            ||"updatedate".equals(schemaTableColumn.getColumnName())) {
+            this.condition = false;
+            this.showListModel="hidden";
+            this.required=false;
+        } else {
+            this.condition = true;
+            this.showListModel="show";
+            this.required=true;
+        }
+
+        if ("createdate".equals(schemaTableColumn.getColumnName())
+                ||"updatedate".equals(schemaTableColumn.getColumnName())) {
+            this.editComponent="datetime";
+        } else {
+            this.editComponent="input";
+        }
+
+        if ("id".equals(schemaTableColumn.getColumnName())) {
+            this.showEditModel="hidden";
+        } else {
+            this.showEditModel="show";
+        }
         this.tableName = schemaTableColumn.getTableName();
         this.columnName = schemaTableColumn.getColumnName();
         this.dataType = schemaTableColumn.getDataType();
         this.columnComment = schemaTableColumn.getColumnComment();
         this.columnKey = schemaTableColumn.getColumnKey();
-        this.condition = true;
-        this.required=true;
-        this.showListModel="show";
         this.showEdit=true;
-        this.showEditModel="show";
-        this.editComponent="input";
+
         this.selectLocalItem="";
 
     }

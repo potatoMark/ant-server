@@ -1,28 +1,18 @@
 package com.framework;
 
-import com.framework.modules.dev.dao.DevCarDao;
-import com.framework.modules.dev.pojo.DevCar;
-import com.framework.modules.dev.service.IDevCarService;
 import com.framework.modules.sys.dao.MenuDao;
 import com.framework.modules.sys.dao.RoleDao;
 import com.framework.modules.sys.dao.UserDao;
 import com.framework.modules.sys.dao.UserMapper;
 import com.framework.modules.sys.service.IUserService;
 import com.framework.modules.tool.dao.ToolDynamicTabDao;
-import com.framework.modules.tool.pojo.ToolDynamicTab;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -50,9 +40,6 @@ public class jdbcTests {
 
     @Autowired
     ToolDynamicTabDao toolDynamicTabDao;
-
-    @Autowired
-    IDevCarService devCarService;
 
     @Test
     public void testSelect() {

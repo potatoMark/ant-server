@@ -23,3 +23,172 @@
 2019-05-17 00:44:29,040 - ResourceManager : found templates/web/search.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
 2019-05-17 00:44:29,046 - ResourceManager : found templates/web/api.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
 2019-05-17 00:44:29,051 - ResourceManager : found templates/web/route.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,399 - Log4JLogChute initialized using file 'velocity.log'
+2019-05-17 09:46:36,400 - Initializing Velocity, Calling init()...
+2019-05-17 09:46:36,400 - Starting Apache Velocity v1.7 (compiled: 2010-11-19 12:14:37)
+2019-05-17 09:46:36,400 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2019-05-17 09:46:36,400 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2019-05-17 09:46:36,401 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2019-05-17 09:46:36,401 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2019-05-17 09:46:36,401 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2019-05-17 09:46:36,411 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,441 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2019-05-17 09:46:36,444 - Loaded System Directive: org.apache.velocity.runtime.directive.Stop
+2019-05-17 09:46:36,447 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2019-05-17 09:46:36,448 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2019-05-17 09:46:36,449 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2019-05-17 09:46:36,450 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2019-05-17 09:46:36,452 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2019-05-17 09:46:36,455 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2019-05-17 09:46:36,457 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2019-05-17 09:46:36,459 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2019-05-17 09:46:36,523 - Created '20' parsers.
+2019-05-17 09:46:36,533 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2019-05-17 09:46:36,535 - Could not load resource 'VM_global_library.vm' from ResourceLoader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader: ClasspathResourceLoader Error: cannot find resource VM_global_library.vm
+2019-05-17 09:46:36,535 - Velocimacro : Default library not found.
+2019-05-17 09:46:36,535 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2019-05-17 09:46:36,535 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2019-05-17 09:46:36,535 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2019-05-17 09:46:36,535 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2019-05-17 09:46:36,631 - ResourceManager : found templates/Controller.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,694 - ResourceManager : found templates/Service.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,754 - ResourceManager : found templates/ServiceImpl.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,772 - ResourceManager : found templates/Pojo.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,789 - ResourceManager : found templates/VO.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,804 - ResourceManager : found templates/Dao.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,822 - ResourceManager : found templates/Dao.xml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,835 - ResourceManager : found templates/web/local.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,915 - ResourceManager : found templates/web/list.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:36,990 - ResourceManager : found templates/web/edit.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:37,000 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:46:37,001 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:46:37,001 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:46:37,001 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:46:37,001 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:46:37,001 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:46:37,001 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:46:37,001 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:46:37,003 - Null reference [template 'templates/web/edit.vue.vm', line 235, column 14] : $nextTick cannot be resolved.
+2019-05-17 09:46:37,003 - Null reference [template 'templates/web/edit.vue.vm', line 236, column 20] : $refs cannot be resolved.
+2019-05-17 09:46:37,003 - Null reference [template 'templates/web/edit.vue.vm', line 237, column 18] : $refs cannot be resolved.
+2019-05-17 09:46:37,023 - ResourceManager : found templates/web/search.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:37,031 - ResourceManager : found templates/web/api.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:46:37,052 - ResourceManager : found templates/web/route.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,630 - ResourceManager : found templates/Controller.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,638 - ResourceManager : found templates/Service.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,664 - ResourceManager : found templates/ServiceImpl.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,669 - ResourceManager : found templates/Pojo.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,677 - ResourceManager : found templates/VO.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,680 - ResourceManager : found templates/Dao.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,693 - ResourceManager : found templates/Dao.xml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,723 - ResourceManager : found templates/web/local.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,737 - ResourceManager : found templates/web/list.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,803 - ResourceManager : found templates/web/edit.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,805 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:48:01,805 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:48:01,805 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:48:01,805 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:48:01,805 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:48:01,805 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:48:01,805 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:48:01,806 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:48:01,806 - Null reference [template 'templates/web/edit.vue.vm', line 235, column 14] : $nextTick cannot be resolved.
+2019-05-17 09:48:01,806 - Null reference [template 'templates/web/edit.vue.vm', line 236, column 20] : $refs cannot be resolved.
+2019-05-17 09:48:01,806 - Null reference [template 'templates/web/edit.vue.vm', line 237, column 18] : $refs cannot be resolved.
+2019-05-17 09:48:01,811 - ResourceManager : found templates/web/search.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,817 - ResourceManager : found templates/web/api.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:48:01,819 - ResourceManager : found templates/web/route.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,750 - ResourceManager : found templates/Controller.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,756 - ResourceManager : found templates/Service.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,776 - ResourceManager : found templates/ServiceImpl.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,782 - ResourceManager : found templates/Pojo.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,791 - ResourceManager : found templates/VO.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,795 - ResourceManager : found templates/Dao.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,799 - ResourceManager : found templates/Dao.xml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,823 - ResourceManager : found templates/web/local.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,851 - ResourceManager : found templates/web/list.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,914 - ResourceManager : found templates/web/edit.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,916 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:59:12,917 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:59:12,917 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:59:12,917 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:59:12,917 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:59:12,917 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:59:12,917 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:59:12,917 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 09:59:12,918 - Null reference [template 'templates/web/edit.vue.vm', line 235, column 14] : $nextTick cannot be resolved.
+2019-05-17 09:59:12,918 - Null reference [template 'templates/web/edit.vue.vm', line 236, column 20] : $refs cannot be resolved.
+2019-05-17 09:59:12,918 - Null reference [template 'templates/web/edit.vue.vm', line 237, column 18] : $refs cannot be resolved.
+2019-05-17 09:59:12,924 - ResourceManager : found templates/web/search.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,931 - ResourceManager : found templates/web/api.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 09:59:12,935 - ResourceManager : found templates/web/route.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,615 - ResourceManager : found templates/Controller.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,621 - ResourceManager : found templates/Service.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,638 - ResourceManager : found templates/ServiceImpl.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,642 - ResourceManager : found templates/Pojo.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,648 - ResourceManager : found templates/VO.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,651 - ResourceManager : found templates/Dao.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,654 - ResourceManager : found templates/Dao.xml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,658 - ResourceManager : found templates/web/local.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,670 - ResourceManager : found templates/web/list.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,689 - ResourceManager : found templates/web/edit.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,691 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:01:35,691 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:01:35,691 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:01:35,692 - Null reference [template 'templates/web/edit.vue.vm', line 235, column 14] : $nextTick cannot be resolved.
+2019-05-17 10:01:35,692 - Null reference [template 'templates/web/edit.vue.vm', line 236, column 20] : $refs cannot be resolved.
+2019-05-17 10:01:35,692 - Null reference [template 'templates/web/edit.vue.vm', line 237, column 18] : $refs cannot be resolved.
+2019-05-17 10:01:35,697 - ResourceManager : found templates/web/search.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,702 - ResourceManager : found templates/web/api.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:01:35,705 - ResourceManager : found templates/web/route.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,499 - Log4JLogChute initialized using file 'velocity.log'
+2019-05-17 10:25:17,500 - Initializing Velocity, Calling init()...
+2019-05-17 10:25:17,500 - Starting Apache Velocity v1.7 (compiled: 2010-11-19 12:14:37)
+2019-05-17 10:25:17,500 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2019-05-17 10:25:17,500 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2019-05-17 10:25:17,500 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2019-05-17 10:25:17,500 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2019-05-17 10:25:17,500 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2019-05-17 10:25:17,508 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,540 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2019-05-17 10:25:17,542 - Loaded System Directive: org.apache.velocity.runtime.directive.Stop
+2019-05-17 10:25:17,545 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2019-05-17 10:25:17,547 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2019-05-17 10:25:17,548 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2019-05-17 10:25:17,550 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2019-05-17 10:25:17,552 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2019-05-17 10:25:17,554 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2019-05-17 10:25:17,556 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2019-05-17 10:25:17,559 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2019-05-17 10:25:17,616 - Created '20' parsers.
+2019-05-17 10:25:17,630 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2019-05-17 10:25:17,633 - Could not load resource 'VM_global_library.vm' from ResourceLoader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader: ClasspathResourceLoader Error: cannot find resource VM_global_library.vm
+2019-05-17 10:25:17,633 - Velocimacro : Default library not found.
+2019-05-17 10:25:17,633 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2019-05-17 10:25:17,633 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2019-05-17 10:25:17,633 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2019-05-17 10:25:17,633 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2019-05-17 10:25:17,761 - ResourceManager : found templates/Controller.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,800 - ResourceManager : found templates/Service.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,847 - ResourceManager : found templates/ServiceImpl.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,858 - ResourceManager : found templates/Pojo.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,869 - ResourceManager : found templates/VO.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,879 - ResourceManager : found templates/Dao.java.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,883 - ResourceManager : found templates/Dao.xml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,892 - ResourceManager : found templates/web/local.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,915 - ResourceManager : found templates/web/list.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,969 - ResourceManager : found templates/web/edit.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,977 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:25:17,977 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:25:17,977 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:25:17,977 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:25:17,977 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:25:17,977 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:25:17,977 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:25:17,978 - Right side ($element.size()) of '!=' operation has null value. If it is a reference, it may not be in the context or its toString() returned null. templates/web/edit.vue.vm[line 195, column 31]
+2019-05-17 10:25:17,979 - Null reference [template 'templates/web/edit.vue.vm', line 235, column 14] : $nextTick cannot be resolved.
+2019-05-17 10:25:17,979 - Null reference [template 'templates/web/edit.vue.vm', line 236, column 20] : $refs cannot be resolved.
+2019-05-17 10:25:17,979 - Null reference [template 'templates/web/edit.vue.vm', line 237, column 18] : $refs cannot be resolved.
+2019-05-17 10:25:17,984 - ResourceManager : found templates/web/search.vue.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,989 - ResourceManager : found templates/web/api.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-05-17 10:25:17,999 - ResourceManager : found templates/web/route.js.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
